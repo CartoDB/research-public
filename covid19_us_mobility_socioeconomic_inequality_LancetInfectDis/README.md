@@ -8,22 +8,20 @@ This repository contains the code to reproduce the results from the manuscript. 
 
 1. **/etl**
 
-Contains two scripts to retrieve the data used in the study
+	- `etl_0_join_mobility_cases_data.ipynb` ([static preview]()): code to retrieve county-level Google workplaces mobility data and COVID-19 epidemiological data.
 
-- `etl_0_join_mobility_cases_data.ipynb` ([static preview]()): code to retrieve, at the county level, Google workplaces mobility data and join them with the epidemiological data
+	- `etl_1_join_census_data.ipynb` ([static preview]()): code to retrieve Applied Geographic Solutions' sociodemographics and buisness counts data at the Census block group level and aggregate the data at the county level. 
 
-- `etl_1_join_census_data.ipynb` ([static preview]()): code to retrieve Applied Geographic Solutions' sociodemographics and buisness counts data at the Census block group level, aggregate them at the county level and join them with the dataset created in `etl_0_join_mobility_cases_data.ipynb`. 
-
-- `etl_2_preprocess.ipynb` ([static preview]()): code to pre-process Google's mobility data as described in the manuscript. 
+	- `etl_2_preprocess.ipynb` ([static preview]()): code to pre-process Google's workplaces mobility data as described in the manuscript. 
 
 2. **/models**
 	 
-- `models_0_beta_and_betaspatial_models.ipynb` ([static preview]()): code to run the Beta-model and the Beta-spatial model described in the manuscript
+	- `models_0_beta_and_betaspatial_models.ipynb` ([static preview]()): code to run the Beta-model and the Beta-spatial model described in the manuscript.
 
-- `model_1_plot_spatial_effects.ipynb.ipynb` ([static preview]()): code to plot the random spatial effects of the Beta-spatial model 
+	- `model_1_plot_spatial_effects.ipynb.ipynb` ([static preview]()): code to plot the random spatial effects of the Beta-spatial model.
 
 3. **/data**
 
-- `FIPS_states.csv`: contains the FIPS codes and the associated state name.
+	- `FIPS_states.csv`:  FIPS codes and associated state names.
 
-4 **/src**: utility code
+4. **/src**: utility scripts
