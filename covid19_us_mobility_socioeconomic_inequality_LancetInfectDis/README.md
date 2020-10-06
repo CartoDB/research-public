@@ -2,7 +2,7 @@
 
 Giulia Carella (giulia.carella@bsc.es)
 
-This repository contains the code to reproduce the results from the manuscript. To run the scripts to retrieve the data, a CARTO account (https://carto.com/) and a subscription to [Applied Geographic Solutions' sociodemographics and buisness counts data](https://carto.com/spatial-data-catalog/browser/?category=demographics&provider=ags) are required.
+This repository contains the code to reproduce the results from the manuscript. To run the scripts to retrieve the data, a [CARTO account](https://carto.com/) and a subscription to [Applied Geographic Solutions' sociodemographics and buisness counts data](https://carto.com/spatial-data-catalog/browser/?category=demographics&provider=ags) are required.
 
 ## Repository structure
 
