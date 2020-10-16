@@ -13,7 +13,7 @@ This repository contains the material for the workshop *Integrating CARTOframes 
 
 ## Installation requirements
 
-To run the notebooks, please follow the instructions below.
+If you'd like to run the notebooks, please follow the instructions below. The workshop can also be followed using the notebook static views linked below.
 
 1. Download or clone this repository. To download the repository click the **Code** button and **Download ZIP**. Otherwise, if you have git installed, you can clone it.
 
