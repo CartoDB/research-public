@@ -4,6 +4,8 @@ October 21st 2020
 
 Giulia Carella (giulia@carto.com) & Miguel Álvarez (malvarez@carto.com)
 
+CARTOframes is our Python package for integrating CARTO maps, analyses, and data services into data science workflows. This workshop will give an introduction to all CARTOframe's functionality through two real-world use cases. You will learn to manage and visualise data, use data services such as geocoding and isochrones, enrich your data with CARTO's Data Observatory datasets, and publish and share your findings. All while working with Jupyter notebooks!
+
 This repository contains the material for the workshop *Integrating CARTOframes into Spatial Data Science workflows*. It includes:
 
 - A deck with the slides used during the workshop
