@@ -4,7 +4,7 @@ October 21st 2020
 
 Giulia Carella (giulia@carto.com) & Miguel Álvarez (malvarez@carto.com)
 
-This repository contains the material for the workshop Integrating CARTOframes into Spatial Data Science workflows. It includes:
+This repository contains the material for the workshop *Integrating CARTOframes into Spatial Data Science workflows*. It includes:
 
 - A deck with the slides used during the workshop
 - Two jupyter notebooks used for the practical session (links to satic previews can be found below)
@@ -28,13 +28,13 @@ To run the notebooks, please follow the instructions below.
 
 4. This will open a new window in your browser, where you will see two jupyter notebooks for the practical session
 
-	- `demo1-site_planning/site_planning.ipynb` : where should Starbucks open new coffee shops in Long Island, NY? In this demo we will go through a typical site selection use case, from modelling the revenues of the existing stores as a function of socioeconomic covariates, to predicting the potential revenues in new locations.  
+	- `demo1-site_planning/site_planning.ipynb` ([static preview]((https://nbviewer.jupyter.org/github/CartoDB/research-public/blob/master/demo1-site_planning/site_planning.ipynb?flush_cache=True))): where should Starbucks open new coffee shops in Long Island, NY? In this demo we will go through a typical site selection use case, from modelling the revenues of the existing stores as a function of socioeconomic covariates, to predicting the potential revenues in new locations.  
 
-	- `demo2-optimization/logistics_optimization.ipynb`: where should a parcel delivery company locate their distribution and fulfilment centers? What areas should they service? In this demo we will go through a supply chain network optimization use case, from analysing past data to identifying spatio-temporal patterns to building an optimization model to analyze and quantify the impact of changes in the current network.
+	- `demo2-optimization/logistics_optimization.ipynb` ([static preview](https://nbviewer.jupyter.org/github/CartoDB/research-public/blob/master/demo2-optimization/logistics_optimization.ipynb?flush_cache=True)): where should a parcel delivery company locate their distribution and fulfilment centers? What areas should they service? In this demo we will go through a supply chain network optimization use case, from analysing past data to identifying spatio-temporal patterns to building an optimization model to analyze and quantify the impact of changes in the current network.
 
 ### CARTO account
 
-**Note** the analyses we'll work on use data from CARTO's [Data Observatory](https://carto.com/spatial-data-catalog/). In order to run them, a CARTO account is needed. You can [create a free CARTO account](https://carto.com/signup) and experience CARTO's tech stack firsthand for 12 months. You can also follow the workshop using the static previews linked above.
+**Note** that the analyses we'll work on use data from CARTO's [Data Observatory](https://carto.com/spatial-data-catalog/). In order to run them, a CARTO account is needed. You can [create a free CARTO account](https://carto.com/signup) and experience CARTO's tech stack firsthand for 12 months. You can also follow the workshop using the static previews linked above.
 
 Once you have a CARTO account
 
