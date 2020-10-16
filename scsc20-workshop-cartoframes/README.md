@@ -13,7 +13,7 @@ This repository contains the material for the workshop *Integrating CARTOframes 
 
 ## Installation requirements
 
-If you'd like to run the notebooks, please follow the instructions below. The workshop can also be followed using the notebook static views linked below.
+If you'd like to run the notebooks, please follow the instructions below. The workshop can also be followed using the notebook static views linked below in step 4.
 
 1. Download or clone this repository. To download the repository click the **Code** button and **Download ZIP**. Otherwise, if you have git installed, you can clone it.
 
@@ -21,7 +21,7 @@ If you'd like to run the notebooks, please follow the instructions below. The wo
   $ git clone git@github.com:CartoDB/research-public.git
   ```
   
-3. Install python (follow instructions here: https://docs.anaconda.com/anaconda/install/) and jupyter (follow instructions here: https://jupyter.readthedocs.io/en/latest/install.html)
+2. Install python (follow instructions here: https://docs.anaconda.com/anaconda/install/) and jupyter (follow instructions here: https://jupyter.readthedocs.io/en/latest/install.html)
 
 3. Open your terminal, go to **scsc20-workshop-cartoframes** and run 
   ```bash
