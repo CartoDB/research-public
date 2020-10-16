@@ -1,0 +1,13 @@
+cartoframes==1.0.3
+geopandas
+shapely
+matplotlib
+seaborn
+missingno
+pandas
+numpy
+scipy
+sklearn
+statsmodels
+rtree
+pystan
