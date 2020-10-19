@@ -6,20 +6,29 @@ class NetworkBasemap:
     def __init__(self, dc_copy, orders_grid_copy):
         self.dc_copy = dc_copy
         self.orders_grid_copy = orders_grid_copy
+        self.add_count = 0
 
     def update_dataframes(self, add, remove):
+        update = False
         if add != 'Select a cell':
+            update = True
+            self.add_count += 1
             geometry = self.orders_grid_copy[self.orders_grid_copy['hex_id'] == add].geometry.iloc[0].centroid
-            self.dc_copy = self.dc_copy.append(pd.DataFrame(data={'name':['Manual'], 
+            self.dc_copy = self.dc_copy.append(pd.DataFrame(data={'name':[f'Manual_{self.add_count}'], 
                                                                   'tipo':['Manual'], 
                                                                   'geometry':[geometry],
                                                                   'coste':0.87}), 
                                                ignore_index=True)
-        if remove != 'Select a center':
+
+        if remove != 'Select a center' and remove in self.dc_copy['name'].to_list():
+            update = True
             self.dc_copy = self.dc_copy.drop(self.dc_copy[self.dc_copy['name'] == remove].index[0]).reset_index(drop=True)
 
 
-        if add != 'Select a cell' or remove != 'Select a center':
+        if update:
+            # Just to be safe
+            self.dc_copy = gpd.GeoDataFrame(self.dc_copy, crs='epsg:4326')
+
             self.orders_grid_copy.drop(columns=['dist_dc', 'delivery_dc'], inplace=True)
             self.orders_grid_copy = find_closest_center(self.dc_copy, self.orders_grid_copy)
             self.orders_grid_copy = calculate_global_weighted_avg(self.orders_grid_copy)
