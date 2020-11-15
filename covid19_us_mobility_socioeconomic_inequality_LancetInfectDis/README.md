@@ -1,4 +1,4 @@
-# Code for the paper: _A Bayesian spatial analysis of the association of socioeconomic inequality and epidemiological conditions and human mobility changes during the US COVID-19 epidemic_ by Carella et al., sumitted to The Lancet Infectious Diseases
+# Code for the paper: _Association of socioeconomic inequality and epidemiological conditions with human mobility changes during the US COVID-19 epidemic_ by Carella et al., 2020 submitted to Proceedings of the National Academy of Sciences
 
 Giulia Carella (giulia.carella@bsc.es)
 
