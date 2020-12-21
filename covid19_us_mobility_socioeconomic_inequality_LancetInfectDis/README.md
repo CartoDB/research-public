@@ -1,4 +1,4 @@
-# Code for the paper: _Association of socioeconomic inequality and epidemiological conditions with human mobility changes during the US COVID-19 epidemic_ by Carella et al., 2020 submitted to Proceedings of the National Academy of Sciences
+# Code for the paper: _Association of socioeconomic inequality and epidemiological conditions with human mobility changes during the US COVID-19 epidemic_ by Carella et al., 2020 submitted to The American Statistician
 
 Giulia Carella (giulia.carella@bsc.es)
 
