@@ -43,7 +43,15 @@ bri.fixed.plot = function(r, together=FALSE){
     p <- p + ggplot_theme + theme(strip.background = element_blank(), text = element_text(size=60), strip.text.x = element_text(size = 50, face = "bold")) + xlab('') + theme(legend.position = "none") 
     return(p)
 }                                   
-                    
+  
+bri.hyper.sd = function(prec,internal=FALSE){
+  if(internal){
+    inla.tmarginal(function(x) 1/sqrt(exp(x)),prec)
+  }else{
+    inla.tmarginal(function(x) 1/sqrt(x), prec)
+  }
+}
+
 bri.hyperpar.plot = function(r,together=TRUE){
     if (!require("ggplot2")) stop("Function requires ggplot2 package. Please install this first.")
     irp = r$internal.marginals.hyperpar
