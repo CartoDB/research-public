@@ -1,6 +1,6 @@
 # Code for the paper: _A Bayesian spatial analysis of the association of socioeconomic inequality and perceived risk of infection with human mobility changes during the first wave of the US COVID-19 epidemic_ by Carella et al., 2020 submitted to The American Statistician
 
-Giulia Carella (giulia.carella@bsc.es)
+Giulia Carella (giulia@carto.com)
 
 This repository contains the code to reproduce the results from the manuscript. To run the scripts to retrieve the data, a [CARTO account](https://carto.com/) and a subscription to [Applied Geographic Solutions' sociodemographics and buisness counts data](https://carto.com/spatial-data-catalog/browser/?category=demographics&provider=ags) are required.
 
