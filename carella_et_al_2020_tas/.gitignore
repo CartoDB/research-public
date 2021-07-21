@@ -1,5 +1,7 @@
+.ipynb_checkpoints/
 models/.ipynb_checkpoints/
 etl/.ipynb_checkpoints/
+.DS_Store
 models/.DS_Store
 etl/.DS_Store
 .DS_Store
