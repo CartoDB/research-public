@@ -29,6 +29,6 @@ Importante note: the requirements as detailed below will change soon, when CARTO
 
 ## Contents
 
-- `demo_sdsc21_logistics.ipynb.ipynb` ([static preview]()). How far do people living in Queens, NYC travel by taxi? Which are the most frequent routes? In this demo, using CARTO Analytics Toolbox, we will visualize trip data using spatial indices, generate simplified networks, and calculate routes and road frequencies.
+- `demo_sdsc21_logistics.ipynb.ipynb` ([static preview](https://nbviewer.org/github/CartoDB/research-public/blob/master/scsc21-workshop-analytics-toolbox/demo_sdsc21_logistics.ipynb)). How far do people living in Queens, NYC travel by taxi? Which are the most frequent routes? In this demo, using CARTO Analytics Toolbox, we will visualize trip data using spatial indices, generate simplified networks, and calculate routes and road frequencies.
 
-- `demo_sdsc21_real_estate.ipynb` ([static preview]()). Where are residents paying more house taxes in Providence, Rhode Island? In this demo, using CARTO Analytics Toolbox, we will go through a typical real estate use case, from enriching data on property taxes with demographic, socio-economic, and points of interests data, to perform a hotspot analysis and visualize the results.
+- `demo_sdsc21_real_estate.ipynb` ([static preview](https://nbviewer.org/github/CartoDB/research-public/blob/master/scsc21-workshop-analytics-toolbox/demo_sdsc21_real_estate.ipynb)). Where are residents paying more house taxes in Providence, Rhode Island? In this demo, using CARTO Analytics Toolbox, we will go through a typical real estate use case, from enriching data on property taxes with demographic, socio-economic, and points of interests data, to perform a hotspot analysis and visualize the results.
