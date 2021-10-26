@@ -21,9 +21,7 @@ Importante note: the requirements as detailed below will change soon, when CARTO
 
 	- [Create or access your CARTO2 account](https://carto.com/login). 
 
-	- Enter your username and password and click Log In. You will be prompted to your CARTO2 dashboard.
-
-	- To subscribe to the open access dataset used in the second use case go to Data -> Your Subscriptions -> New Subscription -> Search for _Spatial Features - United States of America (Quadgrid 15)_ -> Subscribe for free. To find the name of the table in Google Bigquery where the subscribed data are stores, go to QUICK ACTIONS -> Access in Bigquery.
+	- To subscribe to the public dataset used in the second use case go to Data -> Your Subscriptions -> New Subscription -> Search for _Spatial Features - United States of America (Quadgrid 15)_ -> Subscribe for free. To find the name of the table in Google Bigquery where the subscribed data are stores, go to QUICK ACTIONS -> Access in Bigquery.
 
 ![](carto_access.gif)
 
