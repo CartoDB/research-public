@@ -15,7 +15,7 @@ Importante note: the requirements as detailed below will change soon, when CARTO
   
 1. [Create a Google Bigquery account](https://cloud.google.com/bigquery/).
 
-2. [Create or access your CARTO3 account](https://app.carto.com/signup) and [connect your Google Bigquery account](https://docs.carto.com/carto-user-manual/connections/creating-a-connection/#connection-to-bigquery). A free 14-days trial for accessing CARTO3 workspace is available.
+2. [Create or access your CARTO3 account](https://app.carto.com/signup) and [connect your Google Bigquery account](https://docs.carto.com/carto-user-manual/connections/creating-a-connection/#connection-to-bigquery). A free 14-days trial for CARTO3 workspace is available.
 
 3. Subscribe to public data in [CARTO Data Observatory](https://carto.com/spatial-data-catalog/):
 
