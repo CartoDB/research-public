@@ -30,9 +30,9 @@ If you'd like to run the notebooks, please follow the instructions below. The wo
 
 4. This will open a new window in your browser, where you will see two jupyter notebooks for the practical session
 
-	- `demo1-site_planning/site_planning.ipynb` ([static preview](https://nbviewer.org/github/CartoDB/research-public/blob/master/sdsc20-workshop-cartoframes/demo1-site_planning/site_planning.ipynb?flush_cache=True)). Where should Starbucks open new coffee shops in Long Island, NY? In this demo we will go through a typical site selection use case, from modelling the revenues of the existing stores as a function of socioeconomic covariates, to predicting the potential revenues in new locations.  
+	- `demo1-site_planning/site_planning.ipynb`. Where should Starbucks open new coffee shops in Long Island, NY? In this demo we will go through a typical site selection use case, from modelling the revenues of the existing stores as a function of socioeconomic covariates, to predicting the potential revenues in new locations.  
 
-	- `demo2-optimization/logistics_optimization.ipynb` ([static preview](https://nbviewer.jupyter.org/github/CartoDB/research-public/blob/master/scsc20-workshop-cartoframes/demo2-optimization/logistics_optimization.ipynb?flush_cache=True)). Where should a parcel delivery company locate their distribution and fulfilment centers? What areas should they service? In this demo we will go through a supply chain network optimization use case, from analysing past data to identifying spatio-temporal patterns to building an optimization model to analyze and quantify the impact of changes in the current network.
+	- `demo2-optimization/logistics_optimization.ipynb`. Where should a parcel delivery company locate their distribution and fulfilment centers? What areas should they service? In this demo we will go through a supply chain network optimization use case, from analysing past data to identifying spatio-temporal patterns to building an optimization model to analyze and quantify the impact of changes in the current network.
 
 ### CARTO account
 
