@@ -1,0 +1,8 @@
+services:
+  loader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data
+      - ~/.config/gcloud:/root/.config/gcloud
