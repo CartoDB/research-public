@@ -19,6 +19,4 @@ Once you have a CARTO account
 
 2. Enter your username and password and click Log In. You will be prompted to your CARTO dashboard
 
-![](carto_access.png)
-
 
