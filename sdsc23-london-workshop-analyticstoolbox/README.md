@@ -15,7 +15,7 @@ In order to run the analysis, a CARTO account is needed. You can [create a trial
 
 Once you have a CARTO account
 
-1. Go to [https://carto.com/login](https://carto.com/signin/)
+1. Go to [https://carto.com/signin](https://carto.com/signin/)
 
 2. Enter your username and password and click Log In. You will be prompted to your CARTO dashboard
 
