@@ -7,7 +7,7 @@ Giulia Carella (giulia@carto.com) & Lucía García-Duarte (lgarciaduarte@cartodb
 This repository contains the material for the workshop *Cloud Native Spatial Analysis with CARTO: Exploring the Impacts of Climate Change on Insurable Assets*. It includes:
 
 - A deck with the slides used during the workshop
-- A document containing the information to replicate the [analysis performed during the workshop]() and a [longer version]() with more details.
+- A document containing the steps to replicate the [analysis]() and a [shorter version]() which will be used during the workshop.
 
 ### CARTO account
 
