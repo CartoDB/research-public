@@ -12,7 +12,7 @@ mkdir -p  "./data"
 # Google BigQuery variables
 BQ_DATASET="your-dw-project"
 GCP_DATASET="shared"
-BQ_TABLE="composite_score_uk_landcover_raster"
+BQ_TABLE="composite_score_gbr_landcover_raster"
 
 gdalwarp "$INPUT_PATH" \
    -of COG \
