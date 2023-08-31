@@ -1,0 +1,20 @@
+Tabla,Indicador
+t1_1,Total Personas
+t2_1,Porcentaje de mujeres
+t2_2,Porcentaje de hombres
+t3_1,Edad media
+t4_1,Porcentaje de personas menores de 16 años
+t4_2,Porcentaje de personas entre 16 (incluido) y 64 (incluido) años
+t4_3,Porcentaje de personas con más de 64 años
+t5_1,Porcentaje extranjeros
+t6_1,Porcentaje personas nacidas en el extranjero
+t7_1,Porcentaje personas cursando estudios superiores (escur =08 09 10 11 12 ) sobre población de 16 y más
+t8_1,Porcentaje de personas cursando estudios universitarios (escur = 09 10 11 12 ) sobre población de 16 y más
+t9_1,Porcentaje personas con estudios superiores  (esreal_cneda=08 09 10 11 12) sobre población de 16 y más
+t10_1,Porcentaje de población parada sobre población activa= Parados /Activos
+t11_1,Porcentaje de población ocupada sobre población de 16 y más =Ocupados/ Pob 16 y +
+t12_1,Porcentaje de población activa sobre población de 16 y más= Activos / Pob 16 y +
+t13_1,Porcentaje de población pensionista por invalidez sobre población de 16 y más=Pensionistas por invalidez / Pob 16 y +
+t14_1,Porcentaje de población pensionista por jubilación sobre población de 16 y más=Pensionistas por jubilación / Pob 16 y +
+t15_1,Porcentaje de población en otra situación de inactividad sobre población de 16 y más=Población en otra situación de inactividad / Pob 16 y +
+t16_1,Porcentaje de población estudiante sobre población de 16 y más=Estudiantes / Pob 16 y +
