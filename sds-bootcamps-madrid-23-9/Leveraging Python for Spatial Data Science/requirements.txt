@@ -7,3 +7,4 @@ networkx==2.8.4
 shapely==2.0.1
 statsmodels==0.13.5
 jupyterlab==4.0.5
+mgwr-poisson_mgwr.zip
