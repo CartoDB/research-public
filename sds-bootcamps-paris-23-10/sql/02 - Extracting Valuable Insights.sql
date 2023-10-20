@@ -32,11 +32,11 @@ AS (
 -- ISOLINES
 -- ****************************************************************************************************************************************************
 
--- @block Find nearby bike parkings with more than 15 spots
+-- @block Find nearby bike parkings with more than 30 spots
 CALL `carto-un`.carto.CREATE_ISOLINES(
   '$api_endpoint',
   '$lds_token',
-  'SELECT * FROM cartobq.docs.paris_public_parkings WHERE regpar = "Vélos" AND placal > 15',
+  'SELECT * FROM cartobq.docs.paris_public_parkings WHERE regpar = "Vélos" AND placal > 30',
   '$project.$dataset.paris_public_parkings_bike_5min',
   'geom',
   'walk', 5 * 60, 'time',
@@ -46,7 +46,7 @@ CALL `carto-un`.carto.CREATE_ISOLINES(
 CALL `carto-un`.carto.CREATE_ISOLINES(
   '$api_endpoint',
   '$lds_token',
-  'SELECT * FROM cartobq.docs.paris_public_parkings WHERE regpar = "Vélos" AND placal > 15',
+  'SELECT * FROM cartobq.docs.paris_public_parkings WHERE regpar = "Vélos" AND placal > 30',
   '$project.$dataset.paris_public_parkings_bike_10min',
   'geom',
   'walk', 10 * 60, 'time',
