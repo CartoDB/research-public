@@ -62,9 +62,10 @@ CREATE OR REPLACE TABLE $project.$dataset.paris_h3_10
 CLUSTER BY (h3)
 AS (
   WITH paris_boundary AS(
-    SELECT ST_UNION_AGG(geometry) as geom
+    SELECT ST_UNION_AGG(geometry) AS geom
      FROM cartobq.docs.paris_districts 
-  )SELECT h3 FROM UNNEST (
+  )
+  SELECT h3 FROM UNNEST (
     (
       SELECT `carto-un`.carto.H3_POLYFILL(geom, 10)
       FROM paris_boundary
@@ -200,7 +201,6 @@ CALL `carto-un`.carto.RASTER_ST_GETVALUE(
     '$project.$dataset.paris_nasadem_quadbin_value'
 );
 
-
 -- @block Enrich the grid using raster
 CALL `carto-un`.carto.ENRICH_GRID(
   'h3',
@@ -209,7 +209,6 @@ CALL `carto-un`.carto.ENRICH_GRID(
     h3 
   FROM
     cartobq.docs.paris_h3_10
-  WHERE MOD(`carto-un`.carto.H3_STRING_TOINT(h3), 3) = 0
   ''',
   'h3',
   R'''
@@ -221,65 +220,8 @@ CALL `carto-un`.carto.ENRICH_GRID(
   ''',
   'geom',
   [('elevation', 'avg'), ('elevation', 'min'), ('elevation', 'max')],
-  ['$project.$dataset.paris_nasadem_value_h3_mod0']
+  ['$project.$dataset.paris_nasadem_value_h3']
 );
-
-CALL `carto-un`.carto.ENRICH_GRID(
-  'h3',
-  R'''
-  SELECT 
-    h3 
-  FROM cartobq.docs.paris_h3_10
-    WHERE MOD(`carto-un`.carto.H3_STRING_TOINT(h3), 3) = 1
-  ''',
-  'h3',
-  R'''
-    SELECT
-      `carto-un`.carto.QUADBIN_BOUNDARY(quadbin) AS geom,
-      band_1_int16 AS elevation
-    FROM
-      cartobq.docs.paris_nasadem_quadbin_value
-  ''',
-  'geom',
-  [('elevation', 'avg'), ('elevation', 'min'), ('elevation', 'max')],
-  ['$project.$dataset.paris_nasadem_value_h3_mod1']
-);
-
-CALL `carto-un`.carto.ENRICH_GRID(
-  'h3',
-  R'''
-  SELECT 
-    h3 
-  FROM cartobq.docs.paris_h3_10
-    WHERE MOD(`carto-un`.carto.H3_STRING_TOINT(h3), 3) = 2
-  ''',
-  'h3',
-  R'''
-    SELECT
-      `carto-un`.carto.QUADBIN_BOUNDARY(quadbin) AS geom,
-      band_1_int16 AS elevation
-    FROM
-      cartobq.docs.paris_nasadem_quadbin_value
-  ''',
-  'geom',
-  [('elevation', 'avg'), ('elevation', 'min'), ('elevation', 'max')],
-  ['$project.$dataset.paris_nasadem_value_h3_mod2']
-);
-
--- @block Aggregate the partials
-CREATE OR REPLACE TABLE `$project.$dataset.paris_nasadem_value_h3`
-CLUSTER BY h3
-AS (
-  SELECT * FROM `$project.$dataset.paris_nasadem_value_h3_mod0`
-  UNION ALL
-  SELECT * FROM `$project.$dataset.paris_nasadem_value_h3_mod1`
-  UNION ALL
-  SELECT * FROM `$project.$dataset.paris_nasadem_value_h3_mod2`
-);
-
-DROP TABLE `$project.$dataset.paris_nasadem_value_h3_mod0`;
-DROP TABLE `$project.$dataset.paris_nasadem_value_h3_mod1`;
-DROP TABLE `$project.$dataset.paris_nasadem_value_h3_mod2`;
 
 -- @block Using a k-ring to smooth the outliers
 CREATE OR REPLACE TABLE `$project.$dataset.paris_bike_elevation_h3`
