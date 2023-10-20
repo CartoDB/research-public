@@ -22,7 +22,7 @@ WHERE
 CALL `carto-un`.carto.CREATE_ISOLINES(
   '$api_endpoint',
   '$lds_token',
-  'cartobq.docs.paris_velib_parkings',
+  'SELECT * FROM cartobq.docs.paris_velib_parkings WHERE ST_INTERSECTS(geom, (SELECT ST_UNION_AGG(geom) AS geom FROM `cartobq.docs.paris_districts`)) AND capacity > 30',
   '$project.$dataset.paris_velib_parkings_coverage_areas',
   'geom',
   'walk', 15 * 60, 'time',
