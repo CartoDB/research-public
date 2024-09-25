@@ -1,4 +1,4 @@
-# SDSC24. Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO
+# SDSC24 New York - Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO
 
 October 16th 2024
 
