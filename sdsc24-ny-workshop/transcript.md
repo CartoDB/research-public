@@ -245,7 +245,7 @@ First, we aim to estimate the expected counts, conditional on selected covariate
 
 [![11-ts_model_data_prep](sdsc24-ny-workshop/img/11-ts_model_data_prep.png)](https://clausa.app.carto.com/workflows/db5a0a0b-92f2-4f0a-91cd-4b292c9657b7)
 
-Next, we can import a [pre-trained](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-onnx) statistical model into BigQuery to estimate the crime counts for the latest version of the data. While we could train a similar model using [BigQuery ML](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create), importing a pre-trained model allows for an implementation within a Python/PyTorch/TensorFlow environment, which many Data Scientists prefer. The pre-trained model is a linear regression model, designed to estimate the ratio of crime counts per 1000 people based on the selected covariates and is saved in [ONNX format](https://onnx.ai/) in Google Cloud Storage (GCS) in [this public bucket](https://storage.googleapis.com/sdsc_workshops/sdsc24_10/arima_plus_model_opset8_onehot.onnx). A notebook, with the code to train the model and save it to GCS is available [here](). To import the model in BiQuery and make predictions with BigQuery [ML.PREDICT](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-predict) statement we need to call again the [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) component, since these are not available yet as a Workflows component yet: 
+Next, we can import a [pre-trained](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-onnx) statistical model into BigQuery to estimate the crime counts for the latest version of the data. While we could train a similar model using [BigQuery ML](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create), importing a pre-trained model allows for an implementation within a Python/PyTorch/TensorFlow environment, which many Data Scientists prefer. The pre-trained model is a linear regression model, designed to estimate the ratio of crime counts per 1000 people based on the selected covariates and is saved in [ONNX format](https://onnx.ai/) in Google Cloud Storage (GCS) in [this public bucket](https://storage.googleapis.com/sdsc_workshops/sdsc24_10/arima_plus_model_opset8_onehot.onnx). A notebook, with the code to train the model and save it to GCS is available [here](sdsc24-ny-workshop/train_sklearn_model_onnx_gcs.ipynb). To import the model in BiQuery and make predictions with BigQuery [ML.PREDICT](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-predict) statement we need to call again the [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) component, since these are not available yet as a Workflows component yet: 
 
 [![12-ts_model](sdsc24-ny-workshop/img/12-ts_model.png)](https://clausa.app.carto.com/workflows/7bcaf437-50d9-4357-8d6f-f003376d4901)
 
@@ -280,10 +280,10 @@ AS
   ORDER BY h3, week;
 END;
 ```
+
 This map shows the observed and estimated counts for the ten H3 cells with the highest number of crimes over all the period:
 
 [![13-ts_model_map](sdsc24-ny-workshop/img/13-ts_model_map.png)](https://clausa.app.carto.com/builder/d8b81fe2-0fad-49eb-a879-fa56c8941a6b)
-
 
 ### Detect space-time anomalies
 
