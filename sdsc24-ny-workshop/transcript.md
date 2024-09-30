@@ -338,7 +338,7 @@ We then select the region with the highest score, and unnest the results to matc
 
 [![14-st_anomalies](/sdsc24-ny-workshop/img/14-st_anomalies.png)](https://clausa.app.carto.com/workflows/eddb5fb7-d3da-4f6c-aa8a-dbc657fa9101)
 
-![15-st_anomalies_unnest](/sdsc24-ny-workshop/img/15-st_anomalies_unnest.png)
+![15-st_anomalies_unnest](/sdsc24-ny-workshop/img/15-st_anomalies_unnest.gif)
 
 Finally, we can use this workflows to identify which open and vacant buildings [reported by 311 calls](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html ) to the City of Chicago between January 1, 2010 and December 2018 fall within the anomalous detected region, which shows surging violent crimes in the last four weeks, as shown in the maps below
 
