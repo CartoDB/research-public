@@ -235,7 +235,7 @@ In this map shows the different clusters that are returned as a result using the
 [![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/builder/d9830bfd-ab48-410e-9b96-f47e58feff3c)
 We can identify the different dynamics according to the selected clustering method:
 
-- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while group `#3` does not show any seasonal variability; groups `#2` and `#4` seem to be characterized both by a downward trend until 2013 but only group `#2` shows a (slight) upward trend form 2013 onwards).
+- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while group `#3` does not show any seasonal variability; groups `#2` and `#4` seem to be characterized both by a downward trend until 2013 but only group `#2` shows a (slight) upward trend from 2013 onwards).
 - Using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `#4` with very high-levels to group `#1` with very low values. 
 
 ## Inferential analysis
