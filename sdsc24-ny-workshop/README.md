@@ -7,7 +7,7 @@ Giulia Carella (giulia@carto.com)
 This repository contains the material for the workshop *Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO*. It includes:
 
 - A [deck with the slides](ADD LINK) used during the workshop
-- A [complete transcript](ADD LINK) with supporting material like code, maps or images;
+- A [complete transcript](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/transcript.md) with supporting material like code, maps or images;
 
 ## CARTO account
 
