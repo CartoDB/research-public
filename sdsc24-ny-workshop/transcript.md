@@ -2,7 +2,9 @@
 
 ---
 
-**Note**: all the SQL queries are expected to be run in the BigQuery console or CARTO Data Warehouse console. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
+:page_facing_up: For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
+
+:exclamation: There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
 
 ## Presenting the Workshop
 
@@ -226,11 +228,12 @@ Once we have an initial understanding of the spacetime patterns of our data, we 
 
 [![09-ts_clustering](/sdsc24-ny-workshop/img/09-ts_clustering.png)](https://clausa.app.carto.com/workflows/0035f38f-aa97-4561-b401-64375c77774c)
 
-In this map shows the different clusters that are returned as a result:
+In this map shows the different clusters that are returned as a result using the value (_top_) and profile (_bottom_) characteristics:
 
-[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map.png)](https://clausa.app.carto.com/builder/0cc5cb88-7869-48b6-bb9a-d9f5c928ed67)
+[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_value.png)](https://clausa.app.carto.com/builder/0cc5cb88-7869-48b6-bb9a-d9f5c928ed67)
 
-We can identify the different dynamics using the widget to select the clustering method:
+[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/builder/d9830bfd-ab48-410e-9b96-f47e58feff3c)
+We can identify the different dynamics according to the selected clustering method:
 
 - When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while group `#3` does not show any seasonal variability; groups `#2` and `#4` seem to be characterized both by a downward trend until 2013 but only group `#2` shows a (slight) upward trend form 2013 onwards).
 - Using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `#4` with very high-levels to group `#1` with very low values. 
@@ -286,5 +289,63 @@ This map shows the observed and estimated counts for the ten H3 cells with the h
 [![13-ts_model_map](/sdsc24-ny-workshop/img/13-ts_model_map.png)](https://clausa.app.carto.com/builder/d8b81fe2-0fad-49eb-a879-fa56c8941a6b)
 
 ### Detect space-time anomalies
+
+Finally, let's use the estimated counts to detect space-time anomalies (i.e. that affect time series from multiple locations simultaneously) in the most recent timespan. For this task, we can use the [DETECT_SPACETIME_ANOMALIES](ADD_LINK) procedure in the AT, which has been designed specifically for time series that are also localized in space: in this case, we expect that if a given location is affected by an anomalous event, then nearby locations are more likely to be affected than locations that are spatially distant.
+
+Using this procedure, we search over a large and overlapping set of space-time regions, each containing some subset of the data, and find the most significant clusters of anomalous data. This approach, which is known as the [generalized space-time scan statistics framework](https://www.cs.cmu.edu/~neill/papers/ijf.pdf), which consists of computing a score function that compares the probability that a space-time region _S_ is anomalous compared to some baseline to the probability of no anomalous regions. The region(s) with the highest value of the score for which the result is significant for some significance level are identified as the (most) anomalous.
+
+Although, the are many formulations of the definition of anomalous, unexpected, or otherwise interesting regions, in this case we are interested in assuming that, under the null hypothesis of no anomalous space-time regions, the observed values should be equal to the baseline value given by the expected counts estimated in the previous section. 
+
+In this workflows, we first run the `DETECT_SPACETIME_ANOMALIES` procedure using the `Call Procedure` component (a dedicated component will be available soon) 
+
+```sql
+/*==================== native.call (v2.0.0) [594ef61b-8c9b-4320-bc35-5571e8c6ee96]  ====================*/
+BEGIN
+DROP TABLE IF EXISTS `cartodb-on-gcp-datascience.workflows_temp.WORKFLOW_f5c9e65e1af27e04_adf9089f27f8ed60_result`;
+BEGIN
+  DROP TABLE IF EXISTS `cartobq.sdsc24_ny_workshops.CHI_boundary_enriched_st_anomalies`;
+  
+  CALL `carto-un.carto.DETECT_SPACETIME_ANOMALIES` (
+  '''
+  SELECT week, h3, counts, predicted_counts AS counts_baseline
+  FROM `cartodb-on-gcp-datascience.workflows_temp.WORKFLOW_f5c9e65e1af27e04_e3980b81cc381fc6_result`
+  ''',
+  'h3',
+  'week',
+  'counts',
+  'WEEK',
+  'cartobq.sdsc24_ny_workshops.CHI_boundary_enriched_st_anomalies',
+  '''
+  {
+  'kring_size':[1,2],
+  'time_bw':[4,12],
+  'is_prospective': true,
+  'distributional_model':'POISSON',
+  'permutations':99,
+  'estimation_method':'EXPECTATION'
+  }
+  '''
+  );
+  DROP TABLE IF EXISTS `cartodb-on-gcp-datascience.workflows_temp.WORKFLOW_f5c9e65e1af27e04_adf9089f27f8ed60_result_dryrun`;
+  
+END;
+END;
+```
+
+As we can see from the query above, we are looking to detect emerging anomalies (`'is_prospective': true`, i.e. the search focuses only on the final part of the time series) with spatial extent given by a k-ring ('kring_size') between 1 (first order neighbors) and 2 (third order neighbors) and a temporal extent  ('time_bw') between 4 and 12 weeks. Finally, the 'permutations' parameter is set to define the number of permutations used to compute the statistical significance of the detected anomalies.  
+
+We then select the region with the highest score, and unnest the results to match the H3 IDs and timestamps associated with the anomalous region ID (`index_scan`) with the corresponding counts and baseline values.
+
+[![14-st_anomalies](/sdsc24-ny-workshop/img/14-st_anomalies.png)](https://clausa.app.carto.com/workflows/eddb5fb7-d3da-4f6c-aa8a-dbc657fa9101)
+
+![15-st_anomalies_unnest](/sdsc24-ny-workshop/img/15-st_anomalies_unnest.png)
+
+Finally, we can use this workflows to identify which open and vacant buildings [reported by 311 calls](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html ) to the City of Chicago between January 1, 2010 and December 2018 fall within the anomalous detected region, which shows surging violent crimes in the last four weeks, as shown in the maps below
+
+[![16-vacant_buildings](/sdsc24-ny-workshop/img/16-vacant_buildings.png)](https://clausa.app.carto.com/workflows/29c83c17-5633-4d81-98d6-3f0aaca4d7e5)
+
+[![17-st_anomalies_map](/sdsc24-ny-workshop/img/17-st_anomalies_map.png)](https://clausa.app.carto.com/builder/d009f3a5-4cd5-4990-8584-50e8a7281df7)
+
+Detecting vacant buildings in areas experiencing a surge in crime can be highly beneficial for a real estate insurance company. Vacant properties are more vulnerable to vandalism, theft, and arson, which can lead to costly claims. By identifying such properties in high-crime areas, insurance companies can proactively assess risk, adjust coverage rates, or offer specialized policies for property owners. This insight enables better risk management and helps insurers mitigate potential losses, ultimately improving the accuracy of underwriting decisions and enhancing profitability.
 
 ## Closing Thoughts
