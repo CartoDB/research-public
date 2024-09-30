@@ -211,7 +211,7 @@ To run this classification, we can use the [`Spacetime Hotspots Classification`]
 
 We can see how now we have the different types of behaviors at a glance in a single map. There are several insights we can extract from this map:
 
-- There is an large stable hotspot near West Garfield Park, one of [Chicago's most violent neighborhoods](https://graphics.suntimes.com/2023/chicago-most-violent-neighborhood-garfield-park-residents-stories/), that shows an upward trend in violent crimes.
+- There is an large stable hotspot near West Garfield Park, one of [Chicago's most violent neighborhoods](https://graphics.suntimes.com/2023/chicago-most-violent-neighborhood-garfield-park-residents-stories/).
 - The periphery of the city is mostly cold spots, with some stable coldspots in the north east suburban villages and many fluctuating coldspots in the South Suburbs.
 - Englewood which historically has struggled with high levels of violent crime, is classified as a declining hotspot, which might reflect the effects of  the initial phase of the recent Chicago’s [INVEST South/West commercial corridor improvement strategy](https://www.chicago.gov/city/en/sites/invest_sw/home/greater-englewood.html)
 
