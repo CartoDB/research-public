@@ -294,7 +294,7 @@ Finally, let's use the estimated counts to detect space-time anomalies (i.e. tha
 
 Using this procedure, we search over a large and overlapping set of space-time regions, each containing some subset of the data, and find the most significant clusters of anomalous data. This approach, which is known as the [generalized space-time scan statistics framework](https://www.cs.cmu.edu/~neill/papers/ijf.pdf), which consists of computing a score function that compares the probability that a space-time region _S_ is anomalous compared to some baseline to the probability of no anomalous regions. The region(s) with the highest value of the score for which the result is significant for some significance level are identified as the (most) anomalous.
 
-Although, the are many formulations of the definition of anomalous, unexpected, or otherwise interesting regions, in this case we are interested in assuming that, under the null hypothesis of no anomalous space-time regions, the observed values should be equal to the baseline value given by the expected counts estimated in the previous section. 
+Although, the are many formulations of the definition of anomalous, unexpected, or otherwise interesting regions, in this case we are interested in assuming that, under the null hypothesis of no anomalous space-time regions, the observed values should be equal to the baseline values given by the expected counts estimated in the previous section. 
 
 In this workflows, we first run the `DETECT_SPACETIME_ANOMALIES` procedure using the `Call Procedure` component (a dedicated component will be available soon) 
 
