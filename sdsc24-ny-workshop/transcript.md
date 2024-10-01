@@ -2,9 +2,14 @@
 
 ---
 
-:page_facing_up: For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
+> [!IMPORTANT]
+> For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
 
-:exclamation: There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
+> [!WARNING]
+> There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
+
+> [!NOTE]
+> To reproduce any of the workflows, go to the folder [sql]() folder, download the corresponding the SQL script and [import it into your organization](https://docs.carto.com/carto-user-manual/workflows/sharing-workflows#import-a-workflow-from-a-sql-file).
 
 ## Presenting the Workshop
 
@@ -28,6 +33,7 @@ The data comes in three different source tables:
 - **Violent crimes data**. The data we will be using contains information of reported incidents of crime that occurred in the City of Chicago from 2001 to present, minus the most recent seven days. Data is extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system and in available in [Google BigQuery public marketplace](https://cloud.google.com/bigquery/public-data). In order to protect the privacy of crime victims, addresses are shown at the block level only and specific locations are not identified. The data can be found in the public table `bigquery-public-data.chicago_crime.crime`. 
 - **Demographic and socio-economic data**. We will also be using American Community Survey (ACS) Data from CARTO spatial catalog, which are publicly available at the block group resolution using [5-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=5yrs) from 2007 to 2018 and then [1-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=yearly) for 2019 and 2020.
 - **Holiday data**. This [BigQuery ML public dataset](https://cloud.google.com/blog/products/data-analytics/customized-holiday-modeling-with-bigquery-ml-forecasting) reports holiday data for a custom holiday region.
+- **Vacant buildings**. We will also use 311 calls for open and vacant buildings [reported to the City of Chicago](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html) since January 1, 2010. This information is updated daily with the previous day's calls added to the records. The data set provides the date of the 311 service request and the unique Service Request number attached to each request. For each request, the following information (as reported by the 311 caller) is available: address location of building; whether building is vacant or occupied; whether the building is open or boarded; entry point if building is open; whether non-residents are occupying or using the building, if the building appears dangerous or hazardous and if the building is vacant due to a fire.
   
 ## Data pre-processing
 
@@ -340,7 +346,7 @@ We then select the region with the highest score, and unnest the results to matc
 
 ![15-st_anomalies_unnest](/sdsc24-ny-workshop/img/15-st_anomalies_unnest.gif)
 
-Finally, we can use this workflows to identify which open and vacant buildings [reported by 311 calls](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html ) to the City of Chicago between January 1, 2010 and December 2018 fall within the anomalous detected region, which shows surging violent crimes in the last four weeks, as shown in the maps below
+Finally, we can use this workflows to identify which [open and vacant buildings](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html) fall within the anomalous detected region, which shows surging violent crimes in the last four weeks, as shown in the maps below
 
 [![16-vacant_buildings](/sdsc24-ny-workshop/img/16-vacant_buildings.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(9%3A)%20SDSC%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
