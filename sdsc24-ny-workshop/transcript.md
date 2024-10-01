@@ -9,7 +9,7 @@
 > There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
 
 > [!NOTE]
-> To reproduce any of the workflows, go to the folder [sql]() folder, download the corresponding the SQL script and [import it into your organization](https://docs.carto.com/carto-user-manual/workflows/sharing-workflows#import-a-workflow-from-a-sql-file).
+> To reproduce any of the workflows, go to the folder [sql](/sdsc24-ny-workshop/sql) folder, download the corresponding the SQL script and [import it into your organization](https://docs.carto.com/carto-user-manual/workflows/sharing-workflows#import-a-workflow-from-a-sql-file).
 
 ## Presenting the Workshop
 
