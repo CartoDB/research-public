@@ -66,7 +66,7 @@ Similarly, if we were using the `AVG` aggregation instead, we would get the weig
 
 There is, however, another thing to take into account: these enrichment functions have been developed (at least by now) with a geographical intent in mind. We cannot use them as-is to enrich a grid that is also indexed by time (we would lose our date column by calling the `ENRICH_GRID` component, since it will keep a single row per H3). For this reason, we enrich the datasets for each survey years separately and then union all the results.
 
-[![01-enrichment](/sdsc24-ny-workshop/img/01-enrichment.png)](https://clausa.app.carto.com/workflows/18ade665-ab32-4d2a-af74-5e586fd7c39d)
+[![01-enrichment](/sdsc24-ny-workshop/img/01-enrichment.png)](https://github.com/CartoDB/research-public/blob/178f2224a02a4d7e67372b36ed6717e99236b6a7/sdsc24-ny-workshop/sql/(1%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 Now we have projected the data into the H3 grid, but for extensive variables it is important to understand that in this way we have either aggregated or disaggregated the original census variables, which might result in fractional population counts: for example, in case a blockgroup spans across 4 different H3 cells, for each person person living in that block group each will receive 0.25 people. This is a weird measurement, especially if we were to show this in a dashboard to end users, but it is perfectly fine for the analysis that we are going to perform.
 
@@ -147,7 +147,7 @@ From the code above, we can see that the urbanity variable, first transformed to
 
 is treated as a categorical variable when including it in the procedure that prepares the input data ([`BUILD_PCAMIX_DATA`](https://docs.carto.com/data-and-analysis/analytics-toolbox-for-bigquery/sql-reference/statistics#build_pcamix_data)) for the dimensionality reduction analysis, which is later executed by the [`BUILD_PCAMIX_MODEL`](https://docs.carto.com/data-and-analysis/analytics-toolbox-for-bigquery/sql-reference/statistics#build_pcamix_model), which runs the PCA model with the transformed data, and by [`PREDICT_PCAMIX_SCORES`](https://docs.carto.com/data-and-analysis/analytics-toolbox-for-bigquery/sql-reference/statistics#predict_pcamix_scores), which extracts the first two principal component scores (a.k.a. the transformed variables that account for most of the variance in the input data). 
 
-[![03-famd](/sdsc24-ny-workshop/img/03-famd.png)](https://clausa.app.carto.com/workflows/654b0fc8-bc68-450c-b0c8-a43c071b4af0)
+[![03-famd](/sdsc24-ny-workshop/img/03-famd.png)](https://github.com/CartoDB/research-public/blob/178f2224a02a4d7e67372b36ed6717e99236b6a7/sdsc24-ny-workshop/sql/(2%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 ### Adding the temporal dimension
 
@@ -157,7 +157,7 @@ The crime data are then aggregated by intersecting the coordinates of each indiv
 
 Finally, the time series for each H3 cell is gap-filled by adding zeros for weeks without any reported crime and joined with the enriched data from the previous section using the closest ACS survey year.
 
-[![04-ts_processing](/sdsc24-ny-workshop/img/04-ts_processing.png)](https://clausa.app.carto.com/workflows/7ebd5d2a-7963-41d4-8e6f-781035a05f48)
+[![04-ts_processing](/sdsc24-ny-workshop/img/04-ts_processing.png)](https://github.com/CartoDB/research-public/blob/178f2224a02a4d7e67372b36ed6717e99236b6a7/sdsc24-ny-workshop/sql/(3%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 Here is a map where we can explore the final dataset:
 
@@ -217,7 +217,7 @@ We can see how now we have the different types of behaviors at a glance in a sin
 
 Here is the complete workflow:
 
-[![08-hotspots](/sdsc24-ny-workshop/img/08-hotspots.png)](https://clausa.app.carto.com/workflows/3e9e125c-d010-4c29-ae68-e4916e00c480)
+[![08-hotspots](/sdsc24-ny-workshop/img/08-hotspots.png)](https://github.com/CartoDB/research-public/blob/178f2224a02a4d7e67372b36ed6717e99236b6a7/sdsc24-ny-workshop/sql/(4%3A)%20SDSC%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 ### Time Series Clustering
 
@@ -226,7 +226,7 @@ Once we have an initial understanding of the spacetime patterns of our data, we 
 - Value characteristic, that will cluster the series based on the step-by-step distance of its values (the closer the signals, the closer the series). This method applies a [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) using the [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance);
 - Profile characteristic, that will cluster the series based on their dynamics along the time span passed (the closer the correlation, the closer the series). This method applies a [K-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) using the [Cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity).
 
-[![09-ts_clustering](/sdsc24-ny-workshop/img/09-ts_clustering.png)](https://clausa.app.carto.com/workflows/0035f38f-aa97-4561-b401-64375c77774c)
+[![09-ts_clustering](/sdsc24-ny-workshop/img/09-ts_clustering.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(5%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 In this map shows the different clusters that are returned as a result using the value (_top_) and profile (_bottom_) characteristics:
 
@@ -246,11 +246,11 @@ Building on the insights gained from the exploratory analysis, the next step inv
 
 First, we aim to estimate the expected counts, conditional on selected covariates. In addition to the first two principal component scores derived from external data (ACS and CARTO Spatial Features), we can also add endogenous variables. These include spatial lag variables to account for the influence of neighboring regions (since outcomes in one area may affect outcomes in nearby areas due to spatial interactions or spillover effects), counts at previous time lags to model the impact of past values on current or future outcomes (capturing autocorrelation), and seasonal terms to account for repeating seasonal behaviors, which can be represented as Fourier terms by summing sine and cosine functions of different frequencies.
 
-[![11-ts_model_data_prep](/sdsc24-ny-workshop/img/11-ts_model_data_prep.png)](https://clausa.app.carto.com/workflows/db5a0a0b-92f2-4f0a-91cd-4b292c9657b7)
+[![11-ts_model_data_prep](/sdsc24-ny-workshop/img/11-ts_model_data_prep.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(6%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 Next, we can import a [pre-trained](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create-onnx) statistical model into BigQuery to estimate the crime counts for the latest version of the data. While we could train a similar model using [BigQuery ML](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-create), importing a pre-trained model allows for an implementation within a Python/PyTorch/TensorFlow environment, which many Data Scientists prefer. The pre-trained model is a linear regression model, designed to estimate the ratio of crime counts per 1000 people based on the selected covariates and is saved in [ONNX format](https://onnx.ai/) in Google Cloud Storage (GCS) in [this public bucket](https://storage.googleapis.com/sdsc_workshops/sdsc24_10/arima_plus_model_opset8_onehot.onnx). A notebook, with the code to train the model and save it to GCS is available [here](/sdsc24-ny-workshop/train_sklearn_model_onnx_gcs.ipynb). To import the model in BiQuery and make predictions with BigQuery [ML.PREDICT](https://cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-predict) statement we need to call again the [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) component, since these are not available yet as a Workflows component yet: 
 
-[![12-ts_model](/sdsc24-ny-workshop/img/12-ts_model.png)](https://clausa.app.carto.com/workflows/7bcaf437-50d9-4357-8d6f-f003376d4901)
+[![12-ts_model](/sdsc24-ny-workshop/img/12-ts_model.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(7%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 ```sql
 /*==================== native.call (v2.0.0) [90cefe53-db69-456b-9c73-432e7ef7fb0f]  ====================*/
@@ -336,13 +336,13 @@ As we can see from the query above, we are looking to detect emerging anomalies 
 
 We then select the region with the highest score, and unnest the results to match the H3 IDs and timestamps associated with the anomalous region ID (`index_scan`) with the corresponding counts and baseline values.
 
-[![14-st_anomalies](/sdsc24-ny-workshop/img/14-st_anomalies.png)](https://clausa.app.carto.com/workflows/eddb5fb7-d3da-4f6c-aa8a-dbc657fa9101)
+[![14-st_anomalies](/sdsc24-ny-workshop/img/14-st_anomalies.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(8%3A)%20SDSC24%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 ![15-st_anomalies_unnest](/sdsc24-ny-workshop/img/15-st_anomalies_unnest.gif)
 
 Finally, we can use this workflows to identify which open and vacant buildings [reported by 311 calls](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html ) to the City of Chicago between January 1, 2010 and December 2018 fall within the anomalous detected region, which shows surging violent crimes in the last four weeks, as shown in the maps below
 
-[![16-vacant_buildings](/sdsc24-ny-workshop/img/16-vacant_buildings.png)](https://clausa.app.carto.com/workflows/29c83c17-5633-4d81-98d6-3f0aaca4d7e5)
+[![16-vacant_buildings](/sdsc24-ny-workshop/img/16-vacant_buildings.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(9%3A)%20SDSC%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
 [![17-st_anomalies_map](/sdsc24-ny-workshop/img/17-st_anomalies_map.png)](https://clausa.app.carto.com/builder/d009f3a5-4cd5-4990-8584-50e8a7281df7)
 
