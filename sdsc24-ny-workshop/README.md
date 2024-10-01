@@ -7,13 +7,19 @@ Giulia Carella (giulia@carto.com)
 This repository contains the material for the workshop *Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO*. It includes:
 
 - A [deck with the slides](https://docs.google.com/presentation/d/1NH8p9kP1c1hgGg3OfSsYHo4RSsxpHlHz6ZVvJU20FrI/edit#slide=id.g306c8fd83b6_0_1517) used during the workshop
-- A [complete transcript](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/transcript.md) with supporting material like code, maps or images;
-
+- A [complete transcript](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/transcript.md) with supporting material like code, maps or images
+- The [SQL scripts](/sdsc24-ny-workshop/sql) for all the workflows used in the workshop
+- 
 ## CARTO account
 
-:page_facing_up: For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
+> [!IMPORTANT]
+> For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
 
-:exclamation: There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
+> [!WARNING]
+> There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
+
+> [!NOTE]
+> To reproduce any of the workflows, go to the folder [sql](/sdsc24-ny-workshop/sql) folder, download the corresponding the SQL script and [import it into your organization](https://docs.carto.com/carto-user-manual/workflows/sharing-workflows#import-a-workflow-from-a-sql-file).
 
 ## Notes on the code and workflows
 
