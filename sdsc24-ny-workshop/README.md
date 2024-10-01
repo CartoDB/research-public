@@ -9,7 +9,7 @@ This repository contains the material for the workshop *Unlocking Smarter Proper
 - A [deck with the slides](https://docs.google.com/presentation/d/1NH8p9kP1c1hgGg3OfSsYHo4RSsxpHlHz6ZVvJU20FrI/edit#slide=id.g306c8fd83b6_0_1517) used during the workshop
 - A [complete transcript](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/transcript.md) with supporting material like code, maps or images
 - The [SQL scripts](/sdsc24-ny-workshop/sql) for all the workflows used in the workshop
-- 
+
 ## CARTO account
 
 > [!IMPORTANT]
