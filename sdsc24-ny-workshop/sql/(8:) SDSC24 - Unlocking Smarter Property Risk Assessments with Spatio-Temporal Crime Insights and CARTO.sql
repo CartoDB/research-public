@@ -24,7 +24,7 @@ BEGIN
     WHERE week_counts = week_counts_max;
   END;
   BEGIN
-  DROP TABLE IF EXISTS `cartobq.sdsc24_ny_workshops.CHI_boundary_enriched_st_anomalies`;
+  DROP TABLE IF EXISTS `<my-project>.<my-dataset>.CHI_boundary_enriched_st_anomalies`;
   CALL `cartodb-on-gcp-datascience.giulia_carto.DETECT_SPACETIME_ANOMALIES` (
   '''
   SELECT week, h3, counts, predicted_counts AS counts_baseline
@@ -34,7 +34,7 @@ BEGIN
   'week',
   'counts',
   'WEEK',
-  'cartobq.sdsc24_ny_workshops.CHI_boundary_enriched_st_anomalies',
+  '<my-project>.<my-dataset>.CHI_boundary_enriched_st_anomalies',
   '''
   {
   'kring_size':[1,2],
@@ -49,7 +49,7 @@ BEGIN
   CREATE TEMPORARY TABLE `WORKFLOW_f5c9e65e1af27e04_8f547e127bf3c1bf_result`
   AS
     SELECT *
-    FROM `cartobq.sdsc24_ny_workshops.CHI_boundary_enriched_st_anomalies`;
+    FROM `<my-project>.<my-dataset>.CHI_boundary_enriched_st_anomalies`;
   END;
   BEGIN
   CREATE TEMPORARY TABLE `WORKFLOW_f5c9e65e1af27e04_b429717d5e0877ea_result`
