@@ -20,9 +20,9 @@ We'll get hands-on with CARTO, showing you how to analyze the patterns and chang
 More broadly, this practical session will help you see how insurers can use the results from this analysis to  improve portfolio management by better assessing non-financial, location-based risks related to not just crime, but also to other perils, like floods, hurricanes, hail.
 
 Three key takeaways: 
-- How to take advantage of large scale distributed computing technologies to process, visualize, and analyze spatio-temporal big data
-- Using CARTO to model the spatial distribution and temporal evolution of complex datasets for real-world applications
-- Using CARTO to create workflows and visualizations that provide decision-makers with easy access to critical insights
+- How to take advantage of cloud native data warehouses to process, visualize, and analyze spatio-temporal big data
+- How to use CARTO to analyse and model the spatial distribution and temporal evolution of real-world datasets
+- How to use CARTO to create workflows and visualizations that provide decision-makers with easy access to critical insights
 
 The workshop will be run using [CARTO Workflows](https://carto.com/workflows) and the [Goole Cloud Platform](https://cloud.google.com/). For CARTO newbies, Workflows is CARTO’s no-code / low-code solution. Some advantages of using Workflows instead of SQL is that we can have a single query doing everything without worrying of temporal tables (Workflows takes care of that) and provides a more natural way to link together the different steps: you will understand later once we start using some of [CARTO Analytics Toolbox](https://docs.carto.com/faqs/analytics-toolbox)’s functions that the nested queries become harder to grasp without previous experience using it.
 
@@ -241,7 +241,7 @@ In this map shows the different clusters that are returned as a result using the
 [![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/builder/d9830bfd-ab48-410e-9b96-f47e58feff3c)
 We can identify the different dynamics according to the selected clustering method:
 
-- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while group `#3` does not show any seasonal variability; groups `#2` and `#4` seem to be characterized both by a downward trend until 2013 but only group `#2` shows a (slight) upward trend from 2013 onwards).
+- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while groups `#3` and `#4` do not show any seasonal variability; groups `#2` seems to be characterized by a slight upwards trend in the maximum number of crimes from 2013.
 - Using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `#4` with very high-levels to group `#1` with very low values. 
 
 ## Inferential analysis
