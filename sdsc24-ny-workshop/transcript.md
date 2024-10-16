@@ -241,7 +241,7 @@ In this map shows the different clusters that are returned as a result using the
 [![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/builder/d9830bfd-ab48-410e-9b96-f47e58feff3c)
 We can identify the different dynamics according to the selected clustering method:
 
-- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while groups `#3` and `#4` do not show any seasonal variability; groups `#2` seems to be characterized by a slight upwards trend in the maximum number of crimes from 2013.
+- When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while groups `#3` and `#4` do not show any seasonal variability; groups `#2` seems to be characterized by a slight upwards trend in the maximum number of crimes from 2017.
 - Using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `#4` with very high-levels to group `#1` with very low values. 
 
 ## Inferential analysis
@@ -338,7 +338,7 @@ END;
 END;
 ```
 
-As we can see from the query above, we are looking to detect emerging anomalies (`'is_prospective': true`, i.e. the search focuses only on the final part of the time series) with spatial extent given by a k-ring ('kring_size') between 1 (first order neighbors) and 2 (third order neighbors) and a temporal extent  ('time_bw') between 4 and 12 weeks. Finally, the 'permutations' parameter is set to define the number of permutations used to compute the statistical significance of the detected anomalies.  
+As we can see from the query above, we are looking to detect emerging anomalies (`'is_prospective': true`, i.e. the search focuses only on the final part of the time series) with spatial extent given by a k-ring (`'kring_size'`) between 1 (first order neighbors) and 2 (third order neighbors) and a temporal extent  (`'time_bw'`) between 4 and 12 weeks. Finally, the 'permutations' parameter is set to define the number of permutations used to compute the statistical significance of the detected anomalies.  
 
 We then select the region with the highest score, and unnest the results to match the H3 IDs and timestamps associated with the anomalous region ID (`index_scan`) with the corresponding counts and baseline values.
 
