@@ -167,7 +167,7 @@ Finally, the time series for each H3 cell is gap-filled by adding zeros for week
 
 Here is a map where we can explore the final dataset:
 
-[![05-input_data_map](/sdsc24-ny-workshop/img/05-input_data_map.png)](https://clausa.app.carto.com/builder/fee8da00-46d3-426c-b97c-523e66732550)
+[![05-input_data_map](/sdsc24-ny-workshop/img/05-input_data_map.png)](https://clausa.app.carto.com/map/fee8da00-46d3-426c-b97c-523e66732550)
 
 ## Exploratory Analysis: space-time insights
 
@@ -185,7 +185,7 @@ Space-time Getis-Ord iterates on this same concept, but adding time as a new dim
 
 By performing this statistic, we can now check how different parts of the city become _hotter_ or _colder_ as time progresses. This is already insightful, but we have two more functions still that will help us extract more knowledge of this result.
 
-[![06-getis_ord_map](/sdsc24-ny-workshop/img/06-getis_ord_map.png)](https://clausa.app.carto.com/builder/fee8da00-46d3-426c-b97c-523e66732550)
+[![06-getis_ord_map](/sdsc24-ny-workshop/img/06-getis_ord_map.png)](https://clausa.app.carto.com/map/fee8da00-46d3-426c-b97c-523e66732550)
 
 #### Emerging Hotspots
 
@@ -213,7 +213,7 @@ There is yet another analysis we can apply to the space-time Getis-Ord results, 
 
 To run this classification, we can use the [`Spacetime Hotspots Classification`](https://docs.carto.com/carto-user-manual/workflows/components/statistics#spacetime-hotspots-classification) component, which takes the output of `Getis Ord Spacetime` and classifies each location into specific types of hotspots or coldspots, based on patterns of spatial clustering and intensity trends over time.
 
-[![07-hotspots_map](/sdsc24-ny-workshop/img/07-hotspots_map.png)](https://clausa.app.carto.com/builder/9648406f-7790-4784-8b53-2e618fd2f494)
+[![07-hotspots_map](/sdsc24-ny-workshop/img/07-hotspots_map.png)](https://clausa.app.carto.com/map/9648406f-7790-4784-8b53-2e618fd2f494)
 
 We can see how now we have the different types of behaviors at a glance in a single map. There are several insights we can extract from this map:
 
@@ -236,9 +236,9 @@ Once we have an initial understanding of the spacetime patterns of our data, we 
 
 In this map shows the different clusters that are returned as a result using the value (_top_) and profile (_bottom_) characteristics:
 
-[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_value.png)](https://clausa.app.carto.com/builder/0cc5cb88-7869-48b6-bb9a-d9f5c928ed67)
+[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_value.png)](https://clausa.app.carto.com/map/0cc5cb88-7869-48b6-bb9a-d9f5c928ed67)
 
-[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/builder/d9830bfd-ab48-410e-9b96-f47e58feff3c)
+[![10-ts_clustering_map](/sdsc24-ny-workshop/img/10-ts_clustering_map_profile.png)](https://clausa.app.carto.com/map/d9830bfd-ab48-410e-9b96-f47e58feff3c)
 We can identify the different dynamics according to the selected clustering method:
 
 - When clustering using the `PROFILE` method, we can identify group of time series with different seasonalities and trends (e.g. group `#4` is characterized by a large seasonal cycle while groups `#3` and `#4` do not show any seasonal variability; groups `#2` seems to be characterized by a slight upwards trend in the maximum number of crimes from 2017.
@@ -292,7 +292,7 @@ END;
 
 This map shows the observed and estimated counts for the ten H3 cells with the highest number of crimes over all the period:
 
-[![13-ts_model_map](/sdsc24-ny-workshop/img/13-ts_model_map.png)](https://clausa.app.carto.com/builder/d8b81fe2-0fad-49eb-a879-fa56c8941a6b)
+[![13-ts_model_map](/sdsc24-ny-workshop/img/13-ts_model_map.png)](https://clausa.app.carto.com/map/d8b81fe2-0fad-49eb-a879-fa56c8941a6b)
 
 ### Detect space-time anomalies
 
@@ -350,7 +350,7 @@ Finally, we can use this workflows to identify which [open and vacant buildings]
 
 [![16-vacant_buildings](/sdsc24-ny-workshop/img/16-vacant_buildings.png)](https://github.com/CartoDB/research-public/blob/master/sdsc24-ny-workshop/sql/(9%3A)%20SDSC%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
-[![17-st_anomalies_map](/sdsc24-ny-workshop/img/17-st_anomalies_map.png)](https://clausa.app.carto.com/builder/d009f3a5-4cd5-4990-8584-50e8a7281df7)
+[![17-st_anomalies_map](/sdsc24-ny-workshop/img/17-st_anomalies_map.png)](https://clausa.app.carto.com/map/d009f3a5-4cd5-4990-8584-50e8a7281df7)
 
 Detecting vacant buildings in areas experiencing a surge in crime can be highly beneficial for a real estate insurance company. Vacant properties are more vulnerable to vandalism, theft, and arson, which can lead to costly claims. By identifying such properties in high-crime areas, insurance companies can proactively assess risk, adjust coverage rates, or offer specialized policies for property owners. This insight enables better risk management and helps insurers mitigate potential losses, ultimately improving the accuracy of underwriting decisions and enhancing profitability.
 
