@@ -1,9 +1,7 @@
 # GeoPython 2025 - Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO
 
----
 > [!IMPORTANT]
 > Please review [this](../README.md) information before starting the workshop.
----
 
 Spatial Data Science is all about using methods and tools where location and time are key elements of the data. In this tutorial, we'll dive into working with large spatio-temporal datasets, tackling the unique challenges they present in data engineering, visualization, and statistical modeling.
 
