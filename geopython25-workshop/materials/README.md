@@ -1,21 +1,9 @@
 # GeoPython 2025 - Unlocking Smarter Property Risk Assessments with Spatio-Temporal Crime Insights and CARTO
 
 ---
-
 > [!IMPORTANT]
-> For this session, you’ll need a CARTO account! If you don’t have one, you can set up a free 14-day trial at [app.carto.com](app.carto.com). This should only take a couple of minutes to do, but we do recommend setting this up before coming to the workshops so you can dive right in! All the SQL queries are expected to be run in Google BigQuery console or CARTO Data Warehouse console/Workflows. If you are running a trial, you can find the steps to access your console in the [CARTO Data Warehouse documentation](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse).
-
-> [!WARNING]
-> There is a maximum of one CARTO account per email address. If you have previously set up a free trial with your email, we recommend using an alternative email address for this session. If you run into any issues setting up an account, please contact support@carto.com.
-
-> [!NOTE]
-> To reproduce any of the workflows, go to the [`sql`](/geopython25-workshop/sql) folder, download the corresponding SQL script and [import it into your organization](https://docs.carto.com/carto-user-manual/workflows/sharing-workflows#import-a-workflow-from-a-sql-file).
-> - For the workflow that uses a [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) component ([this](/geopython25-workshop/sql/(2:)%20GeoPython25%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)), you will need to replace the dummy `<my-project>.<my-dataset>` with your project and dataset name (e.g. if you are using your `shared` dataset in your [`CARTO Data Warehouse`](https://docs.carto.com/carto-user-manual/connections/carto-data-warehouse) and its BigQuery project is `carto-dw-ac-wm7jx2tm`, you would need to replace it with `carto-dw-ac-wm7jx2tm.shared`).
-> - For the workflow that imports subscribed data from the Data Obsrvatory ([this](/geopython25-workshop/sql/(1:)%20GeoPython25%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)), you will need to first subscribe to the different sources following [this](https://docs.carto.com/carto-user-manual/data-observatory/subscribing-to-public-and-premium-datasets) tutorial, to later drag and drop the data into the canvas and replace the actual sources (you will get an error otherwise).
-
+> Please review [this](../README.md) information before starting the workshop.
 ---
-
-## Presenting the Workshop
 
 Spatial Data Science is all about using methods and tools where location and time are key elements of the data. In this tutorial, we'll dive into working with large spatio-temporal datasets, tackling the unique challenges they present in data engineering, visualization, and statistical modeling.
 
@@ -29,6 +17,7 @@ Three key takeaways:
 - [x] How to use CARTO to create workflows and visualizations that provide decision-makers with easy access to critical insights
 
 The workshop will be run using [CARTO Workflows](https://carto.com/workflows) and the [Goole Cloud Platform](https://cloud.google.com/). For CARTO newbies, Workflows is CARTO’s no-code / low-code solution. Some advantages of using Workflows instead of SQL is that we can have a single query doing everything without worrying about temporal tables (Workflows takes care of that) and provides a more natural way to link together the different steps: you will understand later once we start using some of [CARTO Analytics Toolbox](https://docs.carto.com/faqs/analytics-toolbox)’s functions that the nested queries become harder to grasp without previous experience using it.
+
 
 ---
 
