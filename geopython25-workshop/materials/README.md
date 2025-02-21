@@ -14,8 +14,7 @@ Three key takeaways:
 - [x] How to use CARTO to analyse and model the spatial distribution and temporal evolution of real-world datasets
 - [x] How to use CARTO to create workflows and visualizations that provide decision-makers with easy access to critical insights
 
-The workshop will be run using [CARTO Workflows](https://carto.com/workflows) and the [Goole Cloud Platform](https://cloud.google.com/). For CARTO newbies, Workflows is CARTO’s no-code / low-code solution. Some advantages of using Workflows instead of SQL is that we can have a single query doing everything without worrying about temporal tables (Workflows takes care of that) and provides a more natural way to link together the different steps: you will understand later once we start using some of [CARTO Analytics Toolbox](https://docs.carto.com/faqs/analytics-toolbox)’s functions that the nested queries become harder to grasp without previous experience using it.
-
+The workshop will be run using [CARTO Workflows](https://carto.com/workflows) and the [Google Cloud Platform](https://cloud.google.com/). For CARTO newbies, Workflows is CARTO’s no-code / low-code solution. Some advantages of using Workflows instead of SQL is that we can have a single query doing everything without worrying about temporal tables (Workflows takes care of that) and provides a more natural way to link together the different steps, making the whole pipeline easily reproducible.
 
 ---
 
@@ -24,7 +23,7 @@ The workshop will be run using [CARTO Workflows](https://carto.com/workflows) an
 The main data comes in four different source tables:
 
 - **Violent crimes data**. The data we will be using contains information of reported incidents of crime that occurred in the City of Chicago from 2001 to present, minus the most recent seven days. Data is extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system and is available in [Google BigQuery's public marketplace](https://cloud.google.com/bigquery/public-data). In order to protect the privacy of crime victims, addresses are shown at the block level only, and specific locations are not identified. The data can be found in the public table `bigquery-public-data.chicago_crime.crime`. 
-- **Demographic and socio-economic data**. We will also be using American Community Survey (ACS) Data from the [CARTO Spatial Catalog](https://carto.com/data-observatory), which are publicly available at the block group resolution using [5-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=5yrs) from 2007 to 2018 and then [1-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=yearly) for 2019 and 2020. Additionally, we will include information about the urbanity level of different locations, which can be extracted from the [Spatial Features](https://carto.com/blog/announcing-new-carto-spatial-features-data) dataset, CARTO's globally available derived dataset.
+- **Demographic and socio-economic data**. We will also be using American Community Survey (ACS) Data from the [CARTO Spatial Catalog](https://carto.com/data-observatory), which are publicly available at the Census Block Group resolution using [5-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=5yrs) from 2007 to 2018 and then [1-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=yearly) for 2019 and 2020. Additionally, we will include information about the urbanity level of different locations, which can be extracted from the [Spatial Features](https://carto.com/blog/announcing-new-carto-spatial-features-data) dataset, CARTO's globally available derived dataset.
 - **Vacant buildings**. We will also use 311 calls for open and vacant buildings [reported to the City of Chicago](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html) since January 1, 2010. This information is updated daily with the previous day's calls added to the records. The data set provides the date of the 311 service request and the unique Service Request number attached to each request. For each request, the following information (as reported by the 311 caller) is available: address location of building; whether building is vacant or occupied; whether the building is open or boarded; entry point if building is open; whether non-residents are occupying or using the building, if the building appears dangerous or hazardous and if the building is vacant due to a fire.
 - **Holiday data**. This [BigQuery ML public dataset](https://cloud.google.com/blog/products/data-analytics/customized-holiday-modeling-with-bigquery-ml-forecasting) reports holiday data for a custom holiday region.
 
@@ -38,7 +37,7 @@ For this use case, we are not interested in working with the individual reports.
 
 Quoting CARTO's quickstart guide on Spatial Indexes:
 
-> *Spatial Indexes are multi-resolution, hierarchical grids that are “geolocated” by a short reference string, rather than a complex geometry*
+> *Spatial Indexes are multi-resolution, hierarchical grids that are “geolocated” by a short reference string, rather than a complex geometry.*
 
 Spatial indexes are, therefore, some kind of IDs that always point to the same portion of land. We can also traverse a hierarchy of cells: having the ID of a cell, we can get the parent cell (a larger cell that contains the one we are working with) or the children cell (all the cells that are contained within it).
 
@@ -82,11 +81,11 @@ To do do this, we can borrow some procedures from CARTO AT, which implement the 
   - One-hot-encode the categorical columns to get their indicator matrix
   - Weight each column by the inverse of the square root of its probability, given by the number of ones in each column (Ns) divided by the number of observations (N)
   - Center the columns
-- For ordinal variables we can choose from different encoding methods and by apply the correspoding weight:
+- For ordinal variables we can choose from different encoding methods:
   - Categorical encoding: ordinal variables are hot-encoded and the columns of the resulting indicator matrix are then weighted and centered as in the FAMD method
   - Numerical encoding: ordinal variables are treated as numerical variables
 
-This procedure is not available yet as a Workflows component, and therefore we have to include it in our workflow using a [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) component:
+This procedure is not available yet as a Workflows component, and therefore we have to include it in our workflow using two [`Call Procedure`](https://docs.carto.com/carto-user-manual/workflows/components/custom#call-procedure) components, where we copy and paste the following SQL code:
 
 ```sql
 /*==================== BUILD_PCAMIX_DATA  ====================*/
@@ -137,7 +136,7 @@ is treated as a categorical variable when including it in the procedure that pre
 
 ### _Adding the Temporal Dimension_
 
-We next turn to processing the crimes data, which comes as individual reported crimes with the crime type, report date and location as given by the centroid of the corresponding Census block. To simplify the analysis, we will assume that the given coordinates are the exact coordinates of the crime, and when these are not available we will try to infer them using the [`ST Geocode`](https://docs.carto.com/carto-user-manual/workflows/components/spatial-constructors#st-geocode) component, using the block name as the address.
+We next turn to processing the crimes data, which comes as individual reported crimes with the crime type, report date, and location (given by the centroid of the corresponding Census block). To simplify the analysis, we will assume that the given coordinates are the exact coordinates of the crime, and when these are not available, we will try to infer them using the [`ST Geocode`](https://docs.carto.com/carto-user-manual/workflows/components/spatial-constructors#st-geocode) component, with the block name as the address.
 
 The crime data are then aggregated by intersecting the coordinates of each individual report with the H3 grid and then computing the total counts per H3 cell and week (although we could work with daily data, for this use case it is probably going to be far too sparse, and that's why we decided to aggregate the series in weekly steps instead).
 
@@ -159,7 +158,7 @@ But what about space-time data? We need a statistics that allows you to add the 
 
 ### _Space-time Getis-Ord_
 
-Getis-Ord is a family of statistics used to perform hotspot analysis: measures the value of a specific feature and how it correlates with its surroundings. The higher the value of the feature to measure in a cell, as well as the surrounding cells, the higher the $G_i^*$ statistic. This way, we have a better insight on what are the dynamics from a geographical point of view: we are smoothing the noise out of the visualization.
+Getis-Ord is a family of statistics used to perform hotspot analysis: it measures the value of a specific feature and how it correlates with its surroundings. The higher the value of the feature to measure in a cell, as well as their surrounding cells, the higher the $G_i^*$ statistic (hence, a hotspot). This way, we have a better insight on what are the dynamics from a geographical point of view: we are smoothing the noise out of the visualization.
 
 Space-time Getis-Ord iterates on this same concept, but adding time as a new dimension: now, the surroundings of a cell are not only its neighbors, but also the adjacent time steps (those same neighbors $N$ time steps before). If we had a 2D kernel before, now it is 3D. We can compute the space-time Getis-Ord statistics $G_i^*$ and its associated p-value using the [`Getis Ord Spacetime`](https://docs.carto.com/carto-user-manual/workflows/components/statistics#getis-ord-spacetime) component.
 
