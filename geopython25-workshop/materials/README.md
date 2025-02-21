@@ -21,7 +21,7 @@ The workshop will be run using [CARTO Workflows](https://carto.com/workflows) an
 
 ## Presenting the Data
 
-The data comes in three different source tables:
+The main data comes in four different source tables:
 
 - **Violent crimes data**. The data we will be using contains information of reported incidents of crime that occurred in the City of Chicago from 2001 to present, minus the most recent seven days. Data is extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system and is available in [Google BigQuery's public marketplace](https://cloud.google.com/bigquery/public-data). In order to protect the privacy of crime victims, addresses are shown at the block level only, and specific locations are not identified. The data can be found in the public table `bigquery-public-data.chicago_crime.crime`. 
 - **Demographic and socio-economic data**. We will also be using American Community Survey (ACS) Data from the [CARTO Spatial Catalog](https://carto.com/data-observatory), which are publicly available at the block group resolution using [5-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=5yrs) from 2007 to 2018 and then [1-years estimates](https://carto.com/spatial-data-catalog/browser/?provider=usa_acs&search=yearly) for 2019 and 2020. Additionally, we will include information about the urbanity level of different locations, which can be extracted from the [Spatial Features](https://carto.com/blog/announcing-new-carto-spatial-features-data) dataset, CARTO's globally available derived dataset.
@@ -30,11 +30,11 @@ The data comes in three different source tables:
 
 ---
  
-## Data pre-processing
+## Data Pre-processing
 
 For this use case, we are not interested in working with the individual reports. While we could use Census Block Groups, the units adopted by the ACS dataset, we will opt for a spatial index grid. This regular grid offers several advantages over the irregular polygons of Census Block Groups, particularly in terms of computation, storage, and visualization, as outlined in the next section.
 
-### Spatial Indexes
+### _Spatial Indexes_
 
 Quoting CARTO's quickstart guide on Spatial Indexes:
 
@@ -55,7 +55,7 @@ There are two main spatial indexes to take into account, that should cover a vas
 
 Except very specific use cases, most times it comes down to personal preference or the fact that hexagons look cool on a map. Today, since later we are going to use neighbor rings (K-rings), let's choose H3. Let's start by [polyfilling](https://docs.carto.com/carto-user-manual/workflows/components/spatial-indexes) the area of interest by creating an H3 grid of resolution 7 (about 1.2 km of edge length) of the whole city of Chicago, whose boundary is store in the public table `cartobq.docs.CHI_boundary`.
 
-### Enrichment Functions
+### _Enrichment Functions_
 
 Next, we will intersect and enrich each H3 cells with selected ACS variables from all the available survey years, by specifying the most appropiate aggregation function for each variable, e.g. the `SUM` for extensive variables (which will vary as the size of a feature changes, like the total population) and the `AVG` for intensive variables (like the median income). The `ENRICH_GRID` component does exactly what we need for this. 
 
@@ -71,7 +71,7 @@ There is, however, another thing to take into account: these enrichment function
 
 Now we have projected the data into the H3 grid, but for extensive variables it is important to understand that in this way we have either aggregated or disaggregated the original census variables, which might result in fractional population counts: for example, in case a blockgroup spans across 4 different H3 cells, for each person living in that block group each will receive 0.25 people. This is a weird measurement, especially if we were to show this in a dashboard to end users, but it is perfectly fine for the analysis that we are going to perform.
 
-### Dimensionality reduction
+### _Dimensionality Reduction_
 
 Before including the crime count data too, we want to reduce the dimensionality of the enriched data to reduce model complexity when using this data later on to model crime counts. 
 
@@ -135,7 +135,7 @@ is treated as a categorical variable when including it in the procedure that pre
 
 [![03-famd](../img/03-famd.png)](../sql/(2:)%20GeoPython25%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
-### Adding the temporal dimension
+### _Adding the Temporal Dimension_
 
 We next turn to processing the crimes data, which comes as individual reported crimes with the crime type, report date and location as given by the centroid of the corresponding Census block. To simplify the analysis, we will assume that the given coordinates are the exact coordinates of the crime, and when these are not available we will try to infer them using the [`ST Geocode`](https://docs.carto.com/carto-user-manual/workflows/components/spatial-constructors#st-geocode) component, using the block name as the address.
 
@@ -157,7 +157,7 @@ As someone who works with spatial data, one of the most common types of question
 
 But what about space-time data? We need a statistics that allows you to add the extra dimension of time, by identifying not just where hotspots are, but where and when they are.
 
-#### Space-time Getis-Ord
+### _Space-time Getis-Ord_
 
 Getis-Ord is a family of statistics used to perform hotspot analysis: measures the value of a specific feature and how it correlates with its surroundings. The higher the value of the feature to measure in a cell, as well as the surrounding cells, the higher the $G_i^*$ statistic. This way, we have a better insight on what are the dynamics from a geographical point of view: we are smoothing the noise out of the visualization.
 
@@ -167,7 +167,7 @@ By computing this statistic, we can now check how different parts of the city be
 
 [![06-getis_ord_map](../img/06-getis_ord_map.png)](https://clausa.app.carto.com/map/0b4c7bb7-967e-44b2-b020-c68518b0c89e)
 
-#### Emerging Hotspots
+### _Emerging Hotspots_
 
 There is yet another analysis we can apply to the space-time Getis-Ord results, that will digest the results into a single map based on several predefined categories:
 
@@ -205,7 +205,7 @@ Here is the complete workflow:
 
 [![08-hotspots](../img/08-hotspots.png)](../sql/(4:)%20GeoPython25%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
 
-### Time Series Clustering
+### _Time Series Clustering_
 
 Once we have an initial understanding of the spacetime patterns of our data, we can also try to cluster H3 cells based on their temporal patterns using the [`Cluster Time Series`](https://docs.carto.com/carto-user-manual/workflows/components/statistics#cluster-time-series) component. This component allows to generate $N$ clusters of time series, using different clustering methods. Right now, it features two very simple approaches:
 
@@ -231,7 +231,7 @@ We can identify the different dynamics according to the selected clustering meth
 
 Building on the insights gained from the exploratory analysis, the next step involves performing inferential analysis to draw conclusions and make predictions about the broader population based on the available data.
 
-### Getting the estimated counts 
+### _Getting the Estimated Counts_
 
 First, we aim to estimate the expected counts per 1000 people, conditional on selected covariates. The reason for modeling crime rates per 1000 people instead of total counts is to focus on the risk or probability of an individual being affected by a crime, rather than just the raw number of crimes. By adjusting for population, you get a more accurate measure of risk (how likely it is for someone to experience a crime) instead of being misled by larger populations that might have more total crimes but not necessarily a higher risk.
 
@@ -255,7 +255,7 @@ This map shows the observed and estimated counts for the ten H3 cells with the h
 [![13-ts_model_map](../img/13-ts_model_map.png)](https://clausa.app.carto.com/map/5f079a6a-e389-4b2e-af2f-f30470bad6c5)
 
 
-### Detect space-time anomalies
+### _Detecting Space-time Anomalies_
 
 Finally, let's use the estimated counts to detect space-time anomalies (i.e. that affect time series from multiple locations simultaneously) in the most recent timespan. For this task, we can use the [`Detect Space-time Anomalies`](https://docs.carto.com/carto-user-manual/workflows/components/statistics#detect-space-time-anomalies) component, which has been designed specifically for time series that are also localized in space. In this case, we expect that, if a given location is affected by an anomalous event, then, nearby locations are more likely to be affected than locations that are spatially distant.
 
@@ -266,6 +266,7 @@ Although, the are many formulations of the definition of anomalous, unexpected, 
 We then select the region with the highest score, and unnest the results to match the H3 IDs and timestamps associated with the anomalous region ID (`index_scan`) with the corresponding counts and baseline values.
 
 [![14-st_anomalies](../img/14-st_anomalies.png)](../sql/(8:)%20GeoPython25%20-%20Unlocking%20Smarter%20Property%20Risk%20Assessments%20with%20Spatio-Temporal%20Crime%20Insights%20and%20CARTO.sql)
+
 
 Finally, we can use this workflow to identify which [open and vacant buildings](https://www.chicago.gov/city/en/depts/bldgs/dataset/vacant_and_abandonedbuildingsservicerequests.html) fall within the anomalous detected region.
 
