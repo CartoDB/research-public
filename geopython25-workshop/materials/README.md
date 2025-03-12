@@ -221,7 +221,7 @@ The following maps show the different clusters that are returned as a result usi
 
 We can identify the different dynamics according to the selected clustering method:
 
-- When clustering using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `yellow` with very high-levels to group `purple` with very low values.
+- When clustering using the `VALUE` method, we can clearly identify areas with very different crime levels, from group `purple` with very high-levels to group `yellow` with very low values.
 - Using the `PROFILE` method, we can identify groups of time series with different seasonalities and trends (e.g. `purple` and `green` are characterized by a large seasonal cycle with different trends from 2008 on, while `yellow` and `blue` do not show any seasonal variability, with `yellow` showing a (slight) upward trend from 2017 onwards).
 
 ---
