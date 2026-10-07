@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erewhon Los Angeles — visitor patterns, marketing and retail expansion</title>
+<style>
+:root{
+  --bg:#ffffff; --ink:#141a20; --ink2:#2c3844; --muted:#5f6f7e; --faint:#8a97a4;
+  --line:#e0e5ea; --line2:#eef1f4; --panel:#f7f9fb; --panel2:#f2f5f8;
+  --accent:#D2222D; --accent-soft:#fbe9ea;
+  --c1:#7F3C8D; --c2:#11A579; --c3:#3969AC; --c4:#F2B701; --c5:#E73F74; --c0:#A5AA99;
+  --ga:#2a5674; --gb:#b8562f;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:#ffffff;color:var(--ink);font-family:var(--sans);margin:0;
+     font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 120px}
+header.top{border-bottom:1px solid var(--line);padding:56px 0 30px;margin-bottom:8px}
+h1{font-size:33px;line-height:1.2;margin:0 0 12px;letter-spacing:-.017em;font-weight:650}
+.sub{color:var(--muted);font-size:16.5px;margin:0;max-width:74ch}
+.meta{margin-top:20px;font-size:13px;color:var(--faint);font-family:var(--mono);line-height:1.8}
+.meta b{color:var(--ink2);font-weight:600}
+h2{font-size:24px;margin:62px 0 6px;letter-spacing:-.012em;font-weight:650;
+   padding-top:26px;border-top:1px solid var(--line)}
+h3{font-size:18.5px;margin:40px 0 8px;font-weight:640;letter-spacing:-.006em}
+h4{font-size:15px;margin:26px 0 6px;font-weight:650;color:var(--ink2)}
+p{margin:0 0 15px;max-width:76ch}
+.lede{font-size:17px;color:var(--ink2);max-width:74ch}
+a{color:#1e5aa8}
+code,.num{font-family:var(--mono);font-size:.92em;background:var(--panel2);
+     padding:1px 5px;border-radius:4px;color:var(--ink2)}
+ul{max-width:76ch;padding-left:20px;margin:0 0 15px}
+li{margin:0 0 7px}
+.caption{font-size:13.5px;color:var(--muted);margin:10px 0 24px;max-width:80ch;line-height:1.55}
+.card{border:1px solid var(--line);border-radius:12px;background:#fff;margin:22px 0;overflow:hidden}
+.card-h{padding:15px 20px 12px;border-bottom:1px solid var(--line2);background:var(--panel)}
+.card-h .t{font-weight:640;font-size:15.5px}
+.card-h .d{font-size:13px;color:var(--muted);margin-top:2px}
+.card-b{padding:18px 20px 20px}
+.readout{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;
+   border-top:1px solid var(--line2);margin-top:12px;padding-top:11px;min-height:44px}
+.readout .v{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--ink)}
+.readout .l{font-size:13.5px;color:var(--ink2);font-weight:560}
+.readout .n{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+     background:#fff;margin:0 0 14px}
+.seg button{font:inherit;font-size:13px;padding:6px 14px;border:0;background:#fff;
+     color:var(--muted);cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff;font-weight:560}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.ax text{font-size:11px;fill:var(--faint);font-family:var(--mono)}
+.ax line,.ax path{stroke:var(--line);shape-rendering:crispEdges}
+.gl{stroke:var(--line2);shape-rendering:crispEdges}
+.rule-l{font-size:10.5px;fill:var(--ink2);font-family:var(--mono);paint-order:stroke fill;
+        stroke:#fff;stroke-width:3.5px;stroke-linejoin:round}
+.cellv{font-size:10px;font-family:var(--mono);paint-order:stroke fill;stroke-width:2.6px;
+       stroke-linejoin:round}
+.mk:hover{opacity:.72;cursor:crosshair}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0 4px;font-size:12.5px;align-items:center}
+.key .it{display:flex;align-items:center;gap:6px;color:var(--ink2)}
+.key .sw{width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.14);flex:none}
+.key .sw.dot{border-radius:50%;width:12px;height:12px;border:2px solid #fff;
+             box-shadow:0 0 0 1px rgba(0,0,0,.45)}
+.key .lb{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.keyhead{font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;
+         font-weight:640;margin:16px 0 2px}
+.mapbox{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0 8px;
+        background:var(--panel)}
+.mapbox iframe{display:block;width:100%;height:580px;border:0}
+.maplink{font-size:13px;color:var(--muted);margin:8px 0 26px}
+.maplink a{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line2);text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.045em;color:var(--muted);
+   font-weight:660;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody tr:hover{background:var(--panel)}
+td.mono,th.mono{font-family:var(--mono)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+details.tbl{border:1px solid var(--line);border-radius:10px;margin:16px 0;background:#fff}
+details.tbl>summary{padding:10px 16px;font-size:13.5px;font-weight:620;color:var(--ink2);
+  cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px}
+details.tbl>summary::-webkit-details-marker{display:none}
+details.tbl>summary::after{content:"+";font-family:var(--mono);color:var(--muted);font-size:16px;line-height:1}
+details.tbl[open]>summary::after{content:"−"}
+details.tbl[open]>summary{border-bottom:1px solid var(--line2)}
+details.tbl>summary:hover{background:var(--panel)}
+details.tbl .tbl-b{padding:2px 16px 16px}
+.rc{font-family:var(--mono);font-size:11.5px;color:var(--faint);font-weight:400;
+    margin-left:auto;white-space:nowrap}
+.note{border-left:3px solid var(--line);background:var(--panel);padding:12px 16px;
+      border-radius:0 8px 8px 0;margin:18px 0;font-size:14.2px;color:var(--ink2);max-width:80ch}
+.warn{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 16px;
+      border-radius:0 8px 8px 0;margin:18px 0;font-size:14.2px;color:var(--ink2);max-width:80ch}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0 6px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}
+.tile .bn{font-size:12px;font-weight:660;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.tile dl{margin:10px 0 0;font-size:12.5px}
+.tile dt{color:var(--muted);margin-top:7px;font-size:11.5px}
+.tile dd{margin:0;font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:600}
+@media(max-width:900px){.wrap{padding:0 16px 80px}h1{font-size:27px}
+  .mapbox iframe{height:440px}.tiles{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Erewhon Los Angeles — visitor patterns, marketing and retail expansion</h1>
+  <p class="sub">Four maps and three charts, in the order a decision gets made: who visits the 13 stores today,
+  what kind of places those visitors come from, where a marketing campaign should reach, and what two candidate
+  store locations would be worth.</p>
+  <div class="meta">
+    <b>Data</b> cartobq.docs · BigQuery<br>
+    <b>Grid</b> H3 resolution 7, ~5.16 km² per cell · 2,937 cells in the area of interest<br>
+    <b>Chain</b> 13 stores · 4,566,644 visits · 1,925 distinct origin cells
+  </div>
+</header>
+
+<!-- ============================== 1 ============================== -->
+<h2>1 · Who visits the stores today</h2>
+<p class="lede">The starting point is the observed data: how many visits each H3 cell sends, how many each store
+receives, and how tightly each store's catchment is packed.</p>
+<p>The <strong>60% trade area</strong> on the map is built by taking each store's origin cells in descending order
+of visits and keeping the smallest set that accounts for 60% of its visitors. It answers "where does the bulk of
+this store's business actually come from", which a fixed-radius ring cannot.</p>
+
+<div class="keyhead">Map 1 — layers</div>
+<div class="key">
+  <span class="it"><span class="sw" style="background:linear-gradient(90deg,#fff7fb,#67a9cf,#014636)"></span>
+  Visits per origin cell <span class="lb">quantile bins, PuBuGn</span></span>
+  <span class="it"><span class="sw dot" style="background:#000"></span>
+  Store, radius scaled by visits received</span>
+  <span class="it"><span class="sw" style="background:#fff;border:2px solid #E73F74"></span>
+  60% trade area, one per store</span>
+</div>
+<div class="mapbox"><iframe src="https://clausa.app.carto.com/map/8fb11e69-5aff-4e76-8c74-20a7e9e4dcfe"
+  title="Map 1 — Erewhon visitors and 60% trade areas" loading="lazy"></iframe></div>
+<p class="maplink">Open on its own:
+  <a href="https://clausa.app.carto.com/map/8fb11e69-5aff-4e76-8c74-20a7e9e4dcfe">clausa.app.carto.com/map/8fb11e69-5aff-4e76-8c74-20a7e9e4dcfe</a></p>
+<p class="caption">This map opens filtered to a single store. Clear the selection in the store widget to see the
+whole chain.</p>
+
+<p><strong>The trade areas are wildly different sizes.</strong> <strong>Glendale reaches 60% of its visitors
+with 8 cells</strong>, a single compact blob averaging 3.0 km from the store. <strong>12833 Ventura Blvd needs
+44 cells averaging 14.0 km</strong>, the furthest-reaching set in the chain, scattered across 15 separate patches
+of the Valley. Beverly Hills takes the most cells, 55.</p>
+<p><strong>Calabasas is the one to watch on volume.</strong> Its 60% set is 49 cells averaging 11.7 km, and it
+covers <strong>516,269 visits</strong> — more than any other store's, and more than twice Ventura Blvd's 397,148.
+It is a large catchment that is also a busy one, which is the combination worth protecting.</p>
+<p><strong>7660 Beverly Blvd is the opposite case</strong>, and the one that shows why the two averages are both
+in the table. Its cells average 10.7 km unweighted but only 5.3 km once weighted by visits — a ratio of
+<strong>2.0×</strong>, the widest gap in the chain. Its volume sits close to the store while its footprint
+straggles a long way out. Same grid, same city, same proposition.</p>
+<p class="caption">Two different averages are worth keeping apart. <em>Mean km</em> here is the plain average
+across the cells in the 60% set, which is what the map shows you. The visit-weighted average — where a cell
+sending 40,000 visitors counts 40,000 times — is always lower, because the busiest cells sit closest: Ventura
+Blvd is 14.0 km unweighted against 8.7 km weighted. <em>Max km</em> is in the table for completeness but should
+not be read as size; it is a single cell, and for 7660 Beverly Blvd that cell sits 132.5 km out past Temecula
+carrying 484 visits, 0.24% of the store's total, while the next-furthest cell in its set is at 20.3 km.</p>
+<details class="tbl"><summary>60% trade area, by store<span class="rc"></span></summary>
+  <div class="tbl-b"><div class="scroll"><table id="t-cov"></table></div></div></details>
+
+<!-- ============================== 2 ============================== -->
+<h2>2 · What kind of places the visitors come from</h2>
+<p class="lede">Visit counts say how much. PlacePulse embeddings say what kind. Each H3 cell carries a
+256-dimension vector built from sociodemographics, business mix and income, and the workflow reads that vector
+four ways.</p>
+<details class="tbl">
+  <summary>The five layers on map 2<span class="rc">4 embedding readings + observed visits</span></summary>
+  <div class="tbl-b">
+    <ul style="margin:10px 0 0">
+      <li><strong>Visualization</strong> — the 256 dimensions compressed to three principal components, painted
+      as red, green and blue. Similar colour means similar vector.</li>
+      <li><strong>Mean deviation</strong> — how far a cell sits from the average cell in the area of interest.
+      The loud end is an anomaly.</li>
+      <li><strong>Neighbourhood deviation</strong> — how far a cell sits from its own ring of neighbours. The
+      loud end is a seam, where one kind of place stops and another starts.</li>
+      <li><strong>Clustering</strong> — the origin cells grouped into five kinds of place by their embeddings
+      alone. The clustering never sees a coordinate or a visit count, so the geographic coherence of the result
+      is emergent.</li>
+      <li style="margin-bottom:0"><strong>Total visitors per cell</strong> — the observed counts from section 1,
+      on the same grid, so the embedding readings can be checked against actual demand.</li>
+    </ul>
+  </div>
+</details>
+<div class="mapbox"><iframe src="https://clausa.app.carto.com/map/1fe69cad-cb7c-45a9-b93e-fcc6068783fa"
+  title="Map 2 — PlacePulse embeddings" loading="lazy"></iframe></div>
+<p class="maplink">Open on its own:
+  <a href="https://clausa.app.carto.com/map/1fe69cad-cb7c-45a9-b93e-fcc6068783fa">clausa.app.carto.com/map/1fe69cad-cb7c-45a9-b93e-fcc6068783fa</a></p>
+
+<p><strong>The clusters come out geographically clean even though the clustering never saw a coordinate.</strong>
+Feed it nothing but 256-dimension embeddings and it separates Los Angeles into the Westside, the Valley, the
+Calabasas–Agoura corridor, Downtown and east, and a far outer ring. That the groups are contiguous on the map is
+a result, not an input.</p>
+<p><strong>Demand is concentrated in one of them, and it is not the biggest.</strong> The Westside core — Culver
+City through Beverlywood, the smallest cluster on the ground — carries well over half the chain's visits. The
+Agoura Hills and Westlake corridor covers nearly twice as much ground and sends a twentieth as many visitors per
+cell. Area on this map tells you almost nothing about where the customers are.</p>
+<p><strong>Distance sorts by cluster, not by geography alone.</strong> The Westside cells send visitors a short
+way and the outer ring sends them a long way, with Downtown and the Valley in between — so the kind of place
+someone lives in predicts how far they will travel better than how far out they happen to sit.</p>
+<p><strong>The loudest cells in the embedding are infrastructure, not customers.</strong> Turn on mean deviation
+and the extremes are the LAX airfield, the El Segundo refinery strip and the stadium district around Hollywood
+Park — places with almost no resident population and an industrial business base. They are genuinely unusual.</p>
+
+<h3>2.1 · How far visitors travel</h3>
+<div class="card">
+  <div class="card-h"><div class="t">Distance from origin cell to the store it feeds</div>
+    <div class="d">Box spans the weighted 25th–75th percentile, line is the weighted median, whiskers the
+    weighted 5th and 95th, diamond the weighted mean. Every quantile is weighted by visitor counts, not by cell
+    counts — a cell sending 40,000 visitors counts 40,000 times.</div></div>
+  <div class="card-b">
+    <div class="seg" id="seg-box">
+      <button data-k="store" aria-pressed="true">By store</button>
+      <button data-k="cluster" aria-pressed="false">By origin cluster</button>
+    </div>
+    <div id="chart-box"></div>
+    <div class="readout" id="ro-box"></div>
+  </div>
+</div>
+<p class="caption">By store the medians run 2.79 km at Glendale to 11.93 km at Calabasas. <strong>By cluster the
+separation is far cleaner</strong>: cluster 4 has a median of 4.67 km and cluster 3 a median of 24.96 km, a 5.3×
+gap that no pair of stores comes close to. The kind of place a visitor comes from predicts how far they travel
+better than which store they visit does.</p>
+<p>What follows from that is a split in what the stores are for. Glendale and West Hollywood are neighbourhood
+stores: their customers come from nearby and nowhere else. Calabasas and Ventura Blvd are destination stores,
+pulling people across the Valley and holding a long tail of much longer journeys. The rest sit between the two.
+Treating the estate as one format, with one catchment assumption behind every site decision, does not match how
+these stores actually behave — and because origin cluster separates distance more sharply than store identity
+does, the cluster a place belongs to is the better unit for planning than the store nearest to it.</p>
+
+<h3>2.2 · Which kinds of place each store draws from</h3>
+<div class="card">
+  <div class="card-h"><div class="t">Each store's visits, split by the origin cluster they came from</div>
+    <div class="d">Full-width bars, weighted by visits. A bar dominated by one colour means the store draws from
+    a single kind of place.</div></div>
+  <div class="card-b"><div class="key" id="key-cl"></div>
+    <div id="chart-stack"></div>
+    <div class="readout" id="ro-stack"></div></div>
+</div>
+<p class="caption">Twelve of the thirteen stores are dominated by cluster 4, between 43.7% at Pasadena and 84.7%
+at West Hollywood. <strong>Calabasas is the exception</strong>: cluster 4 gives it only 26.6%, while cluster 1
+gives it 31.9% and cluster 2 a further 17.1%. It is the one store in the chain drawing primarily on a kind of
+place no other store depends on.</p>
+<p>So the chain is built on a single kind of origin place. That is a strength where cluster 4 is dense and a
+concentration risk everywhere else: twelve of the thirteen stores are competing for the same population, and
+anything that changes the Westside — housing costs, a competitor, a shift in who lives there — moves most of the
+estate at once. Calabasas is the only evidence in the data that an Erewhon can work off a different kind of
+origin place, which makes it the most informative store in the chain for anyone considering where to open
+next.</p>
+
+<!-- ============================== 3 ============================== -->
+<h2>3 · Where to grow</h2>
+<p class="lede">Both growth questions run off the same object: a <strong>visitor-weighted embedding profile</strong>
+per store. Take every origin cell that feeds a store, weight its embedding by the visits it sends, average them,
+and normalise to unit length. The result is one 256-dimension vector describing the kind of place that store's
+customers come from.</p>
+
+<h3>3.1 · How alike the store profiles are</h3>
+<div class="card">
+  <div class="card-h"><div class="t">Pairwise cosine between the 13 store profiles</div>
+    <div class="d">All 13 stores, in one order. The diagonal is marked as self, not coloured.</div></div>
+  <div class="card-b"><div class="key" id="key-cos"></div>
+    <div id="chart-cos"></div>
+    <div class="readout" id="ro-cos"></div></div>
+</div>
+<div class="warn"><strong>The profiles are nearly identical, and that is the finding.</strong> Across the 78
+store pairs the cosine runs from 0.9076 to 0.9977, with a median of 0.9813, and 55 of the 78 sit above 0.97.
+Erewhon is not running thirteen propositions; it is running one, in thirteen places. The two extremes are worth
+naming: <strong>Calabasas ↔ West Hollywood</strong> at 0.9076 is the most distinct pair in the chain, and
+<strong>Beverly Hills ↔ Santa Monica</strong> at 0.9977 is the least. Calabasas appears in both of the two lowest
+pairs, which is consistent with what section 2.2 showed about its origin mix.</div>
+
+<h3>3.2 · Marketing expansion — where to advertise</h3>
+<p>Map 3 scores every cell in the area of interest on two things and combines them. <strong>Similarity</strong> is
+the average cosine between the cell's embedding and the 13 store profiles. <strong>Current visits</strong> counts
+visitors going to those stores. The
+<strong>composite score</strong> standard-scales both, weights them equally and reverses visits, so a high score
+marks a place that looks like an Erewhon customer base and does not shop there yet.</p>
+<div class="keyhead">Map 3 — layers</div>
+<div class="key">
+  <span class="it"><span class="sw" style="background:linear-gradient(90deg,#d3f2a3,#6cc08b,#217a79)"></span>
+  Similarity to the store profiles <span class="lb">cosine</span></span>
+  <span class="it"><span class="sw" style="background:linear-gradient(90deg,#f3e0f7,#b998dd,#63589f)"></span>
+  Current visits</span>
+  <span class="it"><span class="sw" style="background:#D2222D"></span>
+  Composite score — top bucket</span>
+</div>
+<div class="mapbox"><iframe src="https://clausa.app.carto.com/map/be3ca736-a11c-4eb3-b556-035a4c76f26f"
+  title="Map 3 — marketing expansion" loading="lazy"></iframe></div>
+<p class="maplink">Open on its own:
+  <a href="https://clausa.app.carto.com/map/be3ca736-a11c-4eb3-b556-035a4c76f26f">clausa.app.carto.com/map/be3ca736-a11c-4eb3-b556-035a4c76f26f</a></p>
+<p><strong>The map has three readings, not two.</strong> Red is opportunity: places that look like Erewhon
+customers and send few. Pale near the stores is the opposite of opportunity — it is territory already won, and
+the bottom-bucket cells within 15 km of a branch average <strong>23,113 visits</strong>, the highest counts in
+the chain. Pale far from the stores is neither: 462 of the 585 bottom-bucket cells send nobody at all, because
+almost nobody lives there. Only the first is a media plan; the second is a retention question and the third is
+nothing.</p>
+<p>Every one of the target (red) cells already sends visitors: the model is pointing at demand that exists
+rather than demand it hopes for. Of the cells an existing store could actually serve, four pockets stand out:</p>
+<ul>
+  <li><strong>San Gabriel Valley, east of Pasadena</strong> — South Pasadena and San Marino through Alhambra,
+  Arcadia, Monrovia and Duarte. By far the largest pocket, starting 2.7 km from the Pasadena store, and holding
+  the strongest cell on the whole map: cosine 0.975 with 3,839 visits already.</li>
+  <li><strong>North San Fernando Valley</strong> — Van Nuys, Panorama City, Northridge and Porter Ranch, 7 to
+  16 km from 12833 Ventura Blvd. The Van Nuys cell is the second strongest anywhere at 0.973 and 3,818 visits.</li>
+  <li><strong>South Bay</strong> — Torrance, Gardena and the Palos Verdes edge, 10 to 16 km from Manhattan
+  Beach, consistently around 0.93–0.96 with one to two thousand visits per cell.</li>
+  <li><strong>La Cañada Flintridge</strong>, 4.5 km north of Glendale — a single cell, but a strong one at 0.959
+  and 2,424 visits, and the closest thing to an easy win on the map.</li>
+</ul>
+<div class="note"><strong>Set the distance slider before reading the map as a media plan.</strong> The
+composite ranks on similarity and current visits only — distance to a store is not one of its inputs, so the
+unfiltered top bucket averages <strong>44.2 km</strong> from the nearest branch, with 21 of its 589 cells inside
+10 km and 58 inside 15 km. The <em>KM to nearest store</em> widget applies that constraint directly, and the four
+pockets above are what survives it. Left wide open, the same map reads as an argument for opening somewhere new
+rather than advertising — which is what section 3.3 takes up.</div>
+
+<h3>3.3 · Retail expansion — what a new store would be worth</h3>
+<p>The same machinery answers a different question. Rather than scoring cells for a campaign, a model trained on
+the existing 13 stores predicts, for each candidate location, how many visitors every cell in the area would send
+it. Two sites are evaluated: <strong>Costa Mesa</strong> and <strong>Thousand Oaks</strong>.</p>
+<div class="tiles" id="tiles"></div>
+<div class="keyhead">Map 4 — layers</div>
+<div class="key">
+  <span class="it"><span class="sw" style="background:linear-gradient(90deg,#f7f4f9,#df65b0,#67001f)"></span>
+  Predicted visits per cell <span class="lb">PuRd</span></span>
+  <span class="it"><span class="sw dot" style="background:#000"></span>Candidate new store</span>
+  <span class="it"><span class="sw dot" style="background:#811414"></span>Existing store</span>
+  <span class="it"><span class="sw" style="background:#fff;border:2px solid #ff991f"></span>
+  Predicted 60% trade area</span>
+</div>
+<div class="mapbox"><iframe src="https://clausa.app.carto.com/map/3848c07d-7532-4d28-901f-c5ffa64b1c52"
+  title="Map 4 — predicted visitors for two candidate stores" loading="lazy"></iframe></div>
+<p class="maplink">Open on its own:
+  <a href="https://clausa.app.carto.com/map/3848c07d-7532-4d28-901f-c5ffa64b1c52">clausa.app.carto.com/map/3848c07d-7532-4d28-901f-c5ffa64b1c52</a></p>
+<p class="caption">This map opens filtered to Thousand Oaks. Use the <em>Per new store</em> widget to switch
+between the two candidates, or clear it to see both.</p>
+
+<p><strong>The two sites come out almost level on total predicted demand</strong> — 153,171 visits for Costa Mesa
+against 151,234 for Thousand Oaks, a gap of 1.3%. That is well inside what a model like this can resolve, so the
+totals alone do not pick a winner. The shape differs more than the total: Thousand Oaks has more cells clearing
+100 predicted visits (187 against 179) and a higher median cell (13 against 10), meaning its demand is spread more
+evenly, while Costa Mesa's is more concentrated.</p>
+<div class="note">Both candidates would land in the bottom third of the existing chain by volume — 12833 Ventura
+Blvd takes 658,054 visits and Calabasas 854,954, while the smallest current store, 9300 Culver Blvd, takes
+101,348. On this model a new store at either site would rank just above the chain's smallest.</div>
+
+<h2>What the four maps say together</h2>
+<p><strong>One customer base, thirteen doors.</strong> The store profiles sit between 0.908 and 0.998 cosine of
+each other, median 0.981. Erewhon is not running thirteen propositions; it is running one, in thirteen places.</p>
+<p><strong>The kind of place predicts travel better than the store does.</strong> Origin clusters separate on
+median journey by 5.3×, store identity by far less. Cluster 4 — the dense Westside band — carries 2.61M of the
+chain's 4.57M visits at a median of 4.67 km.</p>
+<p><strong>The marketing score finds the right places; distance is the filter you apply to them.</strong> High
+similarity plus low current visits is the correct definition of an opportunity, and every top-bucket cell already
+sends visitors. Distance is not one of the score's inputs, so the unfiltered ranking spreads to the edge of the
+study area — but the map carries a km-to-nearest-store slider, so narrowing it to what an existing store can
+serve is a single adjustment rather than a rebuild.</p>
+<p><strong>Which is what makes the retail question the interesting one.</strong> If the best-scoring demand is far
+from the estate, the answer may be a new door rather than a campaign — and Costa Mesa and Thousand Oaks are
+within 1.3% of each other on predicted volume, so the choice between them should turn on cost, cannibalisation
+and site quality rather than on this model.</p>
+
+<h2>Method notes</h2>
+<ul>
+  <li><strong>Similarity rescale.</strong> The Similarity Search component reports
+  <code>(1 + cosine) / 2</code>. All cosine figures here are converted back with
+  <code>2 × similarity_score − 1</code>.</li>
+  <li><strong>Weighting.</strong> Travel-distance quantiles and the store profiles are visitor-weighted. The
+  origin clustering is not — see the note in section 2.</li>
+  <li><strong>Distances</strong> are geodesic, not drive-time, and should be read as a lower bound on travel
+  effort.</li>
+  <li><strong>Trade areas</strong> (<code>erewhon_store_coverage_60</code>) are the smallest set of origin cells
+  covering 60% of a store's visits, not a fixed radius.</li>
+  <li><strong>Predictions</strong> (<code>results_predict</code>) come from a model fitted on the existing 13
+  stores, so they assume a new store behaves like the current estate. Both candidates share an identical maximum
+  cell value of 4,764 predicted visits, which suggests a cap or a shared dominant cell in the model — worth
+  checking before the numbers are used for a business case.</li>
+</ul>
+
+<p class="caption" style="margin-top:44px">Maps ·
+<a href="https://clausa.app.carto.com/map/8fb11e69-5aff-4e76-8c74-20a7e9e4dcfe">1 — Visitors and trade areas</a> ·
+<a href="https://clausa.app.carto.com/map/1fe69cad-cb7c-45a9-b93e-fcc6068783fa">2 — PlacePulse embeddings</a> ·
+<a href="https://clausa.app.carto.com/map/be3ca736-a11c-4eb3-b556-035a4c76f26f">3 — Marketing expansion</a> ·
+<a href="https://clausa.app.carto.com/map/3848c07d-7532-4d28-901f-c5ffa64b1c52">4 — Retail expansion</a></p>
+
+</div>
+<script>
+const D = {"stores": [{"name": "12833 Ventura Blvd", "short": "Ventura Blvd", "group": "A", "visits": 658054, "n_fips": 812, "wtd_km": 17.0, "pct3": 25.46, "pct8": 46.2, "pct20": 75.87, "cluster": 1, "dist_centroid": 0.5626, "lon": -118.41326, "lat": 34.14625}, {"name": "Calabasas", "short": "Calabasas", "group": "A", "visits": 854954, "n_fips": 2084, "wtd_km": 18.48, "pct3": 17.13, "pct8": 35.12, "pct20": 71.16, "cluster": 1, "dist_centroid": 0.4359, "lon": -118.70722, "lat": 34.14094}, {"name": "Glendale - custom", "short": "Glendale", "group": "A", "visits": 305801, "n_fips": 1775, "wtd_km": 7.81, "pct3": 54.7, "pct8": 73.65, "pct20": 89.75, "cluster": 1, "dist_centroid": 0.6595, "lon": -118.243, "lat": 34.15382}, {"name": "Palisades", "short": "Palisades", "group": "A", "visits": 385795, "n_fips": 862, "wtd_km": 14.36, "pct3": 31.44, "pct8": 53.14, "pct20": 74.42, "cluster": 1, "dist_centroid": 0.7245, "lon": -118.52521, "lat": 34.04714}, {"name": "Pasadena", "short": "Pasadena", "group": "A", "visits": 133523, "n_fips": 1516, "wtd_km": 15.47, "pct3": 19.68, "pct8": 45.9, "pct20": 75.98, "cluster": 1, "dist_centroid": 0.6454, "lon": -118.13312, "lat": 34.13754}, {"name": "4121 Santa Monica Blvd", "short": "4121 Santa Monica", "group": "B", "visits": 154725, "n_fips": 615, "wtd_km": 12.31, "pct3": 35.77, "pct8": 60.17, "pct20": 82.69, "cluster": 2, "dist_centroid": 0.8458, "lon": -118.28235, "lat": 34.09217}, {"name": "7660 Beverly Blvd", "short": "7660 Beverly", "group": "B", "visits": 197916, "n_fips": 3347, "wtd_km": 16.71, "pct3": 29.33, "pct8": 50.88, "pct20": 73.83, "cluster": 2, "dist_centroid": 0.6315, "lon": -118.35687, "lat": 34.07591}, {"name": "9300 Culver Blvd. Suite 101", "short": "9300 Culver", "group": "B", "visits": 101348, "n_fips": 2367, "wtd_km": 16.69, "pct3": 27.27, "pct8": 48.31, "pct20": 73.64, "cluster": 2, "dist_centroid": 0.8863, "lon": -118.39328, "lat": 34.02473}, {"name": "Beverly Hills", "short": "Beverly Hills", "group": "B", "visits": 428905, "n_fips": 3631, "wtd_km": 16.8, "pct3": 25.91, "pct8": 46.18, "pct20": 73.12, "cluster": 2, "dist_centroid": 0.7097, "lon": -118.40158, "lat": 34.06912}, {"name": "Manhattan Beach - custom", "short": "Manhattan Beach", "group": "B", "visits": 555689, "n_fips": 3448, "wtd_km": 12.63, "pct3": 27.62, "pct8": 63.24, "pct20": 83.19, "cluster": 2, "dist_centroid": 0.7474, "lon": -118.38219, "lat": 33.90144}, {"name": "Santa Monica", "short": "Santa Monica", "group": "B", "visits": 366959, "n_fips": 2487, "wtd_km": 15.64, "pct3": 30.92, "pct8": 50.79, "pct20": 74.49, "cluster": 2, "dist_centroid": 0.8537, "lon": -118.47514, "lat": 34.03744}, {"name": "Venice", "short": "Venice", "group": "B", "visits": 347959, "n_fips": 1821, "wtd_km": 14.57, "pct3": 36.44, "pct8": 52.01, "pct20": 78.71, "cluster": 2, "dist_centroid": 0.7021, "lon": -118.46218, "lat": 33.98974}, {"name": "West Hollywood - custom", "short": "West Hollywood", "group": "B", "visits": 75016, "n_fips": 782, "wtd_km": 8.32, "pct3": 47.17, "pct8": 71.33, "pct20": 89.65, "cluster": 2, "dist_centroid": 0.5646, "lon": -118.37799, "lat": 34.08832}], "order": ["12833 Ventura Blvd", "Calabasas", "Glendale - custom", "Palisades", "Pasadena", "4121 Santa Monica Blvd", "7660 Beverly Blvd", "9300 Culver Blvd. Suite 101", "Beverly Hills", "Manhattan Beach - custom", "Santa Monica", "Venice", "West Hollywood - custom"], "short": {"12833 Ventura Blvd": "Ventura Blvd", "Calabasas": "Calabasas", "Glendale - custom": "Glendale", "Palisades": "Palisades", "Pasadena": "Pasadena", "4121 Santa Monica Blvd": "4121 Santa Monica", "7660 Beverly Blvd": "7660 Beverly", "9300 Culver Blvd. Suite 101": "9300 Culver", "Beverly Hills": "Beverly Hills", "Manhattan Beach - custom": "Manhattan Beach", "Santa Monica": "Santa Monica", "Venice": "Venice", "West Hollywood - custom": "West Hollywood"}, "md_hist": [{"x0": 0.01, "x1": 0.02, "n": 158}, {"x0": 0.02, "x1": 0.03, "n": 650}, {"x0": 0.03, "x1": 0.04, "n": 549}, {"x0": 0.04, "x1": 0.05, "n": 444}, {"x0": 0.05, "x1": 0.06, "n": 365}, {"x0": 0.06, "x1": 0.07, "n": 250}, {"x0": 0.07, "x1": 0.08, "n": 191}, {"x0": 0.08, "x1": 0.09, "n": 117}, {"x0": 0.09, "x1": 0.1, "n": 77}, {"x0": 0.1, "x1": 0.11, "n": 43}, {"x0": 0.11, "x1": 0.12, "n": 35}, {"x0": 0.12, "x1": 0.13, "n": 14}, {"x0": 0.13, "x1": 0.14, "n": 10}, {"x0": 0.14, "x1": 0.15, "n": 4}, {"x0": 0.15, "x1": 0.16, "n": 3}, {"x0": 0.17, "x1": 0.18, "n": 2}, {"x0": 0.18, "x1": 0.19, "n": 2}, {"x0": 0.2, "x1": 0.21, "n": 2}, {"x0": 0.22, "x1": 0.23, "n": 1}, {"x0": 0.23, "x1": 0.24, "n": 1}, {"x0": 0.27, "x1": 0.28, "n": 1}, {"x0": 0.38, "x1": 0.39, "n": 1}, {"x0": 0.41, "x1": 0.42, "n": 1}, {"x0": 0.43, "x1": 0.44, "n": 2}, {"x0": 0.45, "x1": 0.46, "n": 1}, {"x0": 0.47, "x1": 0.48, "n": 2}], "nd_hist": [{"x0": 0.005, "x1": 0.0075, "n": 4}, {"x0": 0.0075, "x1": 0.01, "n": 27}, {"x0": 0.01, "x1": 0.0125, "n": 79}, {"x0": 0.0125, "x1": 0.015, "n": 172}, {"x0": 0.015, "x1": 0.0175, "n": 274}, {"x0": 0.0175, "x1": 0.02, "n": 272}, {"x0": 0.02, "x1": 0.0225, "n": 280}, {"x0": 0.0225, "x1": 0.025, "n": 262}, {"x0": 0.025, "x1": 0.0275, "n": 265}, {"x0": 0.0275, "x1": 0.03, "n": 237}, {"x0": 0.03, "x1": 0.0325, "n": 207}, {"x0": 0.0325, "x1": 0.035, "n": 181}, {"x0": 0.035, "x1": 0.0375, "n": 136}, {"x0": 0.0375, "x1": 0.04, "n": 110}, {"x0": 0.04, "x1": 0.0425, "n": 85}, {"x0": 0.0425, "x1": 0.045, "n": 49}, {"x0": 0.045, "x1": 0.0475, "n": 46}, {"x0": 0.0475, "x1": 0.05, "n": 54}, {"x0": 0.05, "x1": 0.0525, "n": 39}, {"x0": 0.0525, "x1": 0.055, "n": 26}, {"x0": 0.055, "x1": 0.0575, "n": 25}, {"x0": 0.0575, "x1": 0.06, "n": 12}, {"x0": 0.06, "x1": 0.0625, "n": 11}, {"x0": 0.0625, "x1": 0.065, "n": 12}, {"x0": 0.065, "x1": 0.0675, "n": 7}, {"x0": 0.0675, "x1": 0.07, "n": 13}, {"x0": 0.07, "x1": 0.0725, "n": 6}, {"x0": 0.0725, "x1": 0.075, "n": 4}, {"x0": 0.075, "x1": 0.0775, "n": 3}, {"x0": 0.0775, "x1": 0.08, "n": 4}, {"x0": 0.08, "x1": 0.0825, "n": 2}, {"x0": 0.0825, "x1": 0.085, "n": 2}, {"x0": 0.085, "x1": 0.0875, "n": 3}, {"x0": 0.0875, "x1": 0.09, "n": 2}, {"x0": 0.09, "x1": 0.0925, "n": 2}, {"x0": 0.0925, "x1": 0.095, "n": 1}, {"x0": 0.095, "x1": 0.0975, "n": 1}, {"x0": 0.1025, "x1": 0.105, "n": 1}, {"x0": 0.105, "x1": 0.1075, "n": 2}, {"x0": 0.1075, "x1": 0.11, "n": 1}, {"x0": 0.11, "x1": 0.1125, "n": 2}, {"x0": 0.1125, "x1": 0.115, "n": 2}, {"x0": 0.115, "x1": 0.1175, "n": 2}, {"x0": 0.125, "x1": 0.1275, "n": 1}], "overlap_cells": {"12833 Ventura Blvd": {"4121 Santa Monica Blvd": 42.09, "7660 Beverly Blvd": 86.62, "9300 Culver Blvd. Suite 101": 75.53, "Beverly Hills": 92.17, "Calabasas": 80.91, "Glendale - custom": 71.45, "Manhattan Beach - custom": 83.69, "Palisades": 58.24, "Pasadena": 64.11, "Santa Monica": 82.38, "Venice": 70.8, "West Hollywood - custom": 45.68}, "4121 Santa Monica Blvd": {"12833 Ventura Blvd": 57.33, "7660 Beverly Blvd": 88.0, "9300 Culver Blvd. Suite 101": 79.78, "Beverly Hills": 90.22, "Calabasas": 79.33, "Glendale - custom": 76.0, "Manhattan Beach - custom": 88.89, "Palisades": 54.89, "Pasadena": 72.44, "Santa Monica": 85.11, "Venice": 74.22, "West Hollywood - custom": 49.56}, "7660 Beverly Blvd": {"12833 Ventura Blvd": 41.07, "4121 Santa Monica Blvd": 30.63, "9300 Culver Blvd. Suite 101": 68.06, "Beverly Hills": 86.31, "Calabasas": 69.91, "Glendale - custom": 60.09, "Manhattan Beach - custom": 81.13, "Palisades": 41.22, "Pasadena": 54.76, "Santa Monica": 72.62, "Venice": 59.63, "West Hollywood - custom": 31.55}, "9300 Culver Blvd. Suite 101": {"12833 Ventura Blvd": 44.52, "4121 Santa Monica Blvd": 34.52, "7660 Beverly Blvd": 84.62, "Beverly Hills": 89.9, "Calabasas": 74.04, "Glendale - custom": 65.48, "Manhattan Beach - custom": 87.31, "Palisades": 45.77, "Pasadena": 60.19, "Santa Monica": 77.5, "Venice": 67.88, "West Hollywood - custom": 37.98}, "Beverly Hills": {"12833 Ventura Blvd": 39.99, "4121 Santa Monica Blvd": 28.73, "7660 Beverly Blvd": 78.98, "9300 Culver Blvd. Suite 101": 66.17, "Calabasas": 69.64, "Glendale - custom": 57.54, "Manhattan Beach - custom": 79.48, "Palisades": 41.68, "Pasadena": 53.08, "Santa Monica": 71.27, "Venice": 59.45, "West Hollywood - custom": 30.29}, "Calabasas": {"12833 Ventura Blvd": 40.52, "4121 Santa Monica Blvd": 29.17, "7660 Beverly Blvd": 73.86, "9300 Culver Blvd. Suite 101": 62.91, "Beverly Hills": 80.39, "Glendale - custom": 53.76, "Manhattan Beach - custom": 75.33, "Palisades": 43.38, "Pasadena": 49.67, "Santa Monica": 69.69, "Venice": 59.15, "West Hollywood - custom": 30.47}, "Glendale - custom": {"12833 Ventura Blvd": 48.88, "4121 Santa Monica Blvd": 38.17, "7660 Beverly Blvd": 86.72, "9300 Culver Blvd. Suite 101": 76.0, "Beverly Hills": 90.74, "Calabasas": 73.44, "Manhattan Beach - custom": 85.49, "Palisades": 46.43, "Pasadena": 66.74, "Santa Monica": 80.13, "Venice": 66.41, "West Hollywood - custom": 39.4}, "Manhattan Beach - custom": {"12833 Ventura Blvd": 37.15, "4121 Santa Monica Blvd": 28.96, "7660 Beverly Blvd": 75.96, "9300 Culver Blvd. Suite 101": 65.75, "Beverly Hills": 81.32, "Calabasas": 66.76, "Glendale - custom": 55.47, "Palisades": 37.73, "Pasadena": 53.15, "Santa Monica": 68.72, "Venice": 57.2, "West Hollywood - custom": 29.83}, "Palisades": {"12833 Ventura Blvd": 56.31, "4121 Santa Monica Blvd": 38.96, "7660 Beverly Blvd": 84.07, "9300 Culver Blvd. Suite 101": 75.08, "Beverly Hills": 92.9, "Calabasas": 83.75, "Glendale - custom": 65.62, "Manhattan Beach - custom": 82.18, "Pasadena": 57.89, "Santa Monica": 86.91, "Venice": 75.71, "West Hollywood - custom": 44.48}, "Pasadena": {"12833 Ventura Blvd": 46.29, "4121 Santa Monica Blvd": 38.4, "7660 Beverly Blvd": 83.39, "9300 Culver Blvd. Suite 101": 73.73, "Beverly Hills": 88.34, "Calabasas": 71.61, "Glendale - custom": 70.44, "Manhattan Beach - custom": 86.45, "Palisades": 43.23, "Santa Monica": 76.91, "Venice": 66.43, "West Hollywood - custom": 37.57}, "Santa Monica": {"12833 Ventura Blvd": 43.95, "4121 Santa Monica Blvd": 33.33, "7660 Beverly Blvd": 81.72, "9300 Culver Blvd. Suite 101": 70.15, "Beverly Hills": 87.64, "Calabasas": 74.24, "Glendale - custom": 62.49, "Manhattan Beach - custom": 82.59, "Palisades": 47.95, "Pasadena": 56.83, "Venice": 66.06, "West Hollywood - custom": 34.81}, "Venice": {"12833 Ventura Blvd": 45.88, "4121 Santa Monica Blvd": 35.31, "7660 Beverly Blvd": 81.5, "9300 Culver Blvd. Suite 101": 74.63, "Beverly Hills": 88.79, "Calabasas": 76.53, "Glendale - custom": 62.9, "Manhattan Beach - custom": 83.51, "Palisades": 50.74, "Pasadena": 59.62, "Santa Monica": 80.23, "West Hollywood - custom": 38.27}, "West Hollywood - custom": {"12833 Ventura Blvd": 62.22, "4121 Santa Monica Blvd": 49.56, "7660 Beverly Blvd": 90.67, "9300 Culver Blvd. Suite 101": 87.78, "Beverly Hills": 95.11, "Calabasas": 82.89, "Glendale - custom": 78.44, "Manhattan Beach - custom": 91.56, "Palisades": 62.67, "Pasadena": 70.89, "Santa Monica": 88.89, "Venice": 80.44}}, "ncells": {"12833 Ventura Blvd": 613, "4121 Santa Monica Blvd": 450, "7660 Beverly Blvd": 1293, "9300 Culver Blvd. Suite 101": 1040, "Beverly Hills": 1413, "Calabasas": 1224, "Glendale - custom": 896, "Manhattan Beach - custom": 1381, "Palisades": 634, "Pasadena": 849, "Santa Monica": 1149, "Venice": 946, "West Hollywood - custom": 450}, "total_origin_cells": 1925, "bands": {"12833 Ventura Blvd": [65064, 96389, 93882, 47042, 40814, 62038, 48929, 41934, 40872, 23630, 26165, 71295], "4121 Santa Monica Blvd": [48806, 13365, 16838, 8722, 13323, 9550, 10324, 7511, 7165, 4980, 3723, 10418], "7660 Beverly Blvd": [48612, 17334, 26490, 7674, 9252, 12943, 11012, 12739, 13356, 8506, 10646, 19352], "9300 Culver Blvd. Suite 101": [20946, 12552, 8118, 7084, 6569, 9407, 3658, 6227, 5156, 5492, 5764, 10375], "Beverly Hills": [73393, 58827, 33527, 29677, 31692, 34418, 24432, 26717, 28743, 24725, 23559, 39195], "Calabasas": [100680, 56880, 80954, 71340, 66021, 76721, 83398, 74548, 68488, 45259, 65667, 64998], "Glendale - custom": [119114, 62400, 28231, 11943, 17240, 13812, 14318, 7659, 6622, 7935, 8189, 8338], "Manhattan Beach - custom": [47806, 137167, 113881, 52777, 31650, 31665, 26920, 21207, 19766, 15801, 21016, 36033], "Palisades": [108233, 56731, 27017, 13148, 16236, 23636, 18370, 24516, 34331, 23517, 17469, 22591], "Pasadena": [21873, 12317, 13811, 13685, 9124, 13645, 7035, 10457, 5891, 6840, 8492, 10353], "Santa Monica": [90430, 47416, 29621, 16408, 15184, 23928, 18875, 31371, 24838, 23136, 16935, 28817], "Venice": [90105, 49968, 17822, 19284, 29657, 28113, 15945, 23272, 18565, 15809, 10911, 28508], "West Hollywood - custom": [30601, 9362, 7998, 3756, 3877, 5050, 4051, 2512, 1935, 2610, 1178, 2086]}, "band_edges": [2, 4, 6, 8, 10, 13, 16, 20, 25, 32, 45, null], "box_store": {"12833 Ventura Blvd": [0.51, 4.0, 9.6, 19.36, 70.3, 17.1, 658054], "4121 Santa Monica Blvd": [1.12, 1.12, 5.9, 15.6, 51.1, 12.49, 154725], "7660 Beverly Blvd": [0.88, 2.58, 7.64, 20.31, 70.61, 16.81, 197916], "9300 Culver Blvd. Suite 101": [1.07, 2.6, 8.48, 21.19, 63.08, 16.8, 101348], "Beverly Hills": [1.31, 3.31, 8.94, 21.5, 65.3, 16.96, 428905], "Calabasas": [1.04, 4.77, 11.93, 22.55, 60.86, 18.51, 854954], "Glendale - custom": [0.74, 1.93, 2.79, 8.41, 33.76, 7.98, 305801], "Manhattan Beach - custom": [0.49, 2.89, 5.0, 13.19, 53.28, 12.69, 555689], "Palisades": [1.3, 1.75, 6.3, 20.37, 51.09, 14.44, 385795], "Pasadena": [1.48, 3.84, 9.54, 19.39, 52.3, 15.58, 133523], "Santa Monica": [1.09, 2.6, 7.87, 20.23, 61.68, 15.75, 366959], "Venice": [1.27, 1.31, 7.77, 17.33, 55.65, 14.66, 347959], "West Hollywood - custom": [1.22, 1.47, 3.3, 10.62, 27.67, 8.62, 75016]}, "box_cluster": {"1": [1.04, 2.23, 7.25, 18.19, 79.52, 16.72, 429208], "2": [1.54, 3.65, 7.35, 18.8, 73.74, 17.13, 226933], "3": [5.83, 14.56, 24.96, 45.76, 111.36, 36.5, 344288], "4": [0.74, 1.82, 4.67, 11.5, 34.69, 9.5, 2613750], "5": [2.01, 7.97, 16.46, 29.17, 66.75, 22.59, 952432]}, "sc": {"12833 Ventura Blvd": {"1": 25598, "2": 14182, "3": 66559, "4": 385684, "5": 166031, "0": 0}, "4121 Santa Monica Blvd": {"1": 1317, "2": 1482, "3": 12735, "4": 104170, "5": 35020, "0": 1}, "7660 Beverly Blvd": {"1": 2772, "2": 1931, "3": 11462, "4": 131287, "5": 50460, "0": 4}, "9300 Culver Blvd. Suite 101": {"1": 2034, "2": 997, "3": 4739, "4": 64436, "5": 29142, "0": 0}, "Beverly Hills": {"1": 12932, "2": 6924, "3": 23346, "4": 302956, "5": 82747, "0": 0}, "Calabasas": {"1": 272611, "2": 145790, "3": 114417, "4": 227520, "5": 94591, "0": 25}, "Glendale - custom": {"1": 7167, "2": 7080, "3": 24751, "4": 135295, "5": 131508, "0": 0}, "Manhattan Beach - custom": {"1": 6214, "2": 3984, "3": 17262, "4": 371444, "5": 156783, "0": 2}, "Palisades": {"1": 69975, "2": 29346, "3": 17479, "4": 232791, "5": 36203, "0": 1}, "Pasadena": {"1": 2418, "2": 1487, "3": 19052, "4": 58295, "5": 52271, "0": 0}, "Santa Monica": {"1": 17714, "2": 9152, "3": 18484, "4": 257399, "5": 64210, "0": 0}, "Venice": {"1": 7945, "2": 4283, "3": 11897, "4": 278930, "5": 44904, "0": 0}, "West Hollywood - custom": {"1": 511, "2": 295, "3": 2105, "4": 63543, "5": 8562, "0": 0}}, "cos": {"12833 Ventura Blvd": {"12833 Ventura Blvd": 1.0, "4121 Santa Monica Blvd": 0.988765, "7660 Beverly Blvd": 0.990433, "9300 Culver Blvd. Suite 101": 0.994005, "Beverly Hills": 0.98965, "Calabasas": 0.976171, "Glendale - custom": 0.991644, "Manhattan Beach - custom": 0.951017, "Palisades": 0.99092, "Pasadena": 0.994823, "Santa Monica": 0.992657, "Venice": 0.985874, "West Hollywood - custom": 0.966106}, "Calabasas": {"Calabasas": 1.0, "12833 Ventura Blvd": 0.976171, "4121 Santa Monica Blvd": 0.946381, "7660 Beverly Blvd": 0.946944, "9300 Culver Blvd. Suite 101": 0.959245, "Beverly Hills": 0.949593, "Glendale - custom": 0.970992, "Manhattan Beach - custom": 0.912481, "Palisades": 0.980324, "Pasadena": 0.977056, "Santa Monica": 0.957063, "Venice": 0.946883, "West Hollywood - custom": 0.907627}, "Glendale - custom": {"Glendale - custom": 1.0, "12833 Ventura Blvd": 0.991644, "4121 Santa Monica Blvd": 0.983062, "7660 Beverly Blvd": 0.979098, "9300 Culver Blvd. Suite 101": 0.981557, "Beverly Hills": 0.975791, "Calabasas": 0.970992, "Manhattan Beach - custom": 0.931222, "Palisades": 0.975585, "Pasadena": 0.988624, "Santa Monica": 0.979087, "Venice": 0.969165, "West Hollywood - custom": 0.948344}, "Palisades": {"Palisades": 1.0, "12833 Ventura Blvd": 0.99092, "4121 Santa Monica Blvd": 0.972862, "7660 Beverly Blvd": 0.97784, "9300 Culver Blvd. Suite 101": 0.984732, "Beverly Hills": 0.982046, "Calabasas": 0.980324, "Glendale - custom": 0.975585, "Manhattan Beach - custom": 0.944025, "Pasadena": 0.984152, "Santa Monica": 0.987808, "Venice": 0.981105, "West Hollywood - custom": 0.955301}, "Pasadena": {"Pasadena": 1.0, "12833 Ventura Blvd": 0.994823, "4121 Santa Monica Blvd": 0.981205, "7660 Beverly Blvd": 0.982532, "9300 Culver Blvd. Suite 101": 0.990402, "Beverly Hills": 0.98132, "Calabasas": 0.977056, "Glendale - custom": 0.988624, "Manhattan Beach - custom": 0.949658, "Palisades": 0.984152, "Santa Monica": 0.985615, "Venice": 0.979293, "West Hollywood - custom": 0.95101}, "4121 Santa Monica Blvd": {"4121 Santa Monica Blvd": 1.0, "12833 Ventura Blvd": 0.988765, "7660 Beverly Blvd": 0.996022, "9300 Culver Blvd. Suite 101": 0.990679, "Beverly Hills": 0.988923, "Calabasas": 0.946381, "Glendale - custom": 0.983062, "Manhattan Beach - custom": 0.952906, "Palisades": 0.972862, "Pasadena": 0.981205, "Santa Monica": 0.987248, "Venice": 0.983624, "West Hollywood - custom": 0.978635}, "7660 Beverly Blvd": {"7660 Beverly Blvd": 1.0, "12833 Ventura Blvd": 0.990433, "4121 Santa Monica Blvd": 0.996022, "9300 Culver Blvd. Suite 101": 0.994941, "Beverly Hills": 0.996594, "Calabasas": 0.946944, "Glendale - custom": 0.979098, "Manhattan Beach - custom": 0.961601, "Palisades": 0.97784, "Pasadena": 0.982532, "Santa Monica": 0.994961, "Venice": 0.990984, "West Hollywood - custom": 0.988493}, "9300 Culver Blvd. Suite 101": {"9300 Culver Blvd. Suite 101": 1.0, "12833 Ventura Blvd": 0.994005, "4121 Santa Monica Blvd": 0.990679, "7660 Beverly Blvd": 0.994941, "Beverly Hills": 0.992953, "Calabasas": 0.959245, "Glendale - custom": 0.981557, "Manhattan Beach - custom": 0.967751, "Palisades": 0.984732, "Pasadena": 0.990402, "Santa Monica": 0.995314, "Venice": 0.994123, "West Hollywood - custom": 0.973926}, "Beverly Hills": {"Beverly Hills": 1.0, "12833 Ventura Blvd": 0.98965, "4121 Santa Monica Blvd": 0.988923, "7660 Beverly Blvd": 0.996594, "9300 Culver Blvd. Suite 101": 0.992953, "Calabasas": 0.949593, "Glendale - custom": 0.975791, "Manhattan Beach - custom": 0.961299, "Palisades": 0.982046, "Pasadena": 0.98132, "Santa Monica": 0.997721, "Venice": 0.99161, "West Hollywood - custom": 0.989959}, "Manhattan Beach - custom": {"Manhattan Beach - custom": 1.0, "12833 Ventura Blvd": 0.951017, "4121 Santa Monica Blvd": 0.952906, "7660 Beverly Blvd": 0.961601, "9300 Culver Blvd. Suite 101": 0.967751, "Beverly Hills": 0.961299, "Calabasas": 0.912481, "Glendale - custom": 0.931222, "Palisades": 0.944025, "Pasadena": 0.949658, "Santa Monica": 0.963079, "Venice": 0.981791, "West Hollywood - custom": 0.949665}, "Santa Monica": {"Santa Monica": 1.0, "12833 Ventura Blvd": 0.992657, "4121 Santa Monica Blvd": 0.987248, "7660 Beverly Blvd": 0.994961, "9300 Culver Blvd. Suite 101": 0.995314, "Beverly Hills": 0.997721, "Calabasas": 0.957063, "Glendale - custom": 0.979087, "Manhattan Beach - custom": 0.963079, "Palisades": 0.987808, "Pasadena": 0.985615, "Venice": 0.994682, "West Hollywood - custom": 0.983277}, "Venice": {"Venice": 1.0, "12833 Ventura Blvd": 0.985874, "4121 Santa Monica Blvd": 0.983624, "7660 Beverly Blvd": 0.990984, "9300 Culver Blvd. Suite 101": 0.994123, "Beverly Hills": 0.99161, "Calabasas": 0.946883, "Glendale - custom": 0.969165, "Manhattan Beach - custom": 0.981791, "Palisades": 0.981105, "Pasadena": 0.979293, "Santa Monica": 0.994682, "West Hollywood - custom": 0.97833}, "West Hollywood - custom": {"West Hollywood - custom": 1.0, "12833 Ventura Blvd": 0.966106, "4121 Santa Monica Blvd": 0.978635, "7660 Beverly Blvd": 0.988493, "9300 Culver Blvd. Suite 101": 0.973926, "Beverly Hills": 0.989959, "Calabasas": 0.907627, "Glendale - custom": 0.948344, "Manhattan Beach - custom": 0.949665, "Palisades": 0.955301, "Pasadena": 0.95101, "Santa Monica": 0.983277, "Venice": 0.97833}}, "buckets": [{"b": 1, "label": "1 - Lowest", "n": 580, "mean_sim": 0.80271, "mean_cos": 0.60543, "mean_visits": 2343.6, "med_visits": 0, "mean_km": 64.08, "med_km": 52.89, "n_zero": 499, "z_sim": -1.2912, "z_vis": -0.4143}, {"b": 2, "label": "2 - Low", "n": 586, "mean_sim": 0.84312, "mean_cos": 0.68624, "mean_visits": 179.3, "med_visits": 0, "mean_km": 71.16, "med_km": 73.31, "n_zero": 405, "z_sim": -0.6862, "z_vis": 0.1515}, {"b": 3, "label": "3 - Middle", "n": 590, "mean_sim": 0.89872, "mean_cos": 0.79743, "mean_visits": 412.2, "med_visits": 14, "mean_km": 58.96, "med_km": 61.54, "n_zero": 167, "z_sim": 0.1463, "z_vis": 0.0906}, {"b": 4, "label": "4 - Watch", "n": 594, "mean_sim": 0.93543, "mean_cos": 0.87085, "mean_visits": 456.6, "med_visits": 132, "mean_km": 51.78, "med_km": 50.05, "n_zero": 20, "z_sim": 0.696, "z_vis": 0.079}, {"b": 5, "label": "5 - Act here", "n": 587, "mean_sim": 0.96303, "mean_cos": 0.92606, "mean_visits": 425.4, "med_visits": 327, "mean_km": 38.58, "med_km": 36.31, "n_zero": 1, "z_sim": 1.1094, "z_vis": 0.0871}], "topbucket": [{"store": "Pasadena", "n": 346, "mean_km": 40.8, "min_km": 1.2, "mean_cos": 0.9233, "mean_visits": 330, "w10": 31, "w20": 71, "area": 277, "parts": 4}, {"store": "Manhattan Beach - custom", "n": 156, "mean_km": 43.8, "min_km": 9.9, "mean_cos": 0.9337, "mean_visits": 517, "w10": 1, "w20": 23, "area": 127, "parts": 3}, {"store": "Calabasas", "n": 46, "mean_km": 27.4, "min_km": 2.2, "mean_cos": 0.9149, "mean_visits": 436, "w10": 5, "w20": 22, "area": 281, "parts": 8}, {"store": "12833 Ventura Blvd", "n": 21, "mean_km": 12.3, "min_km": 4.7, "mean_cos": 0.9318, "mean_visits": 840, "w10": 8, "w20": 20, "area": 253, "parts": 15}, {"store": "Glendale - custom", "n": 9, "mean_km": 6.2, "min_km": 2.0, "mean_cos": 0.9408, "mean_visits": 1059, "w10": 8, "w20": 9, "area": 46, "parts": 1}, {"store": "4121 Santa Monica Blvd", "n": 8, "mean_km": 12.1, "min_km": 4.1, "mean_cos": 0.9288, "mean_visits": 852, "w10": 3, "w20": 8, "area": 115, "parts": 9}, {"store": "Palisades", "n": 1, "mean_km": 13.0, "min_km": 13.0, "mean_cos": 0.951, "mean_visits": 934, "w10": 0, "w20": 1, "area": 138, "parts": 5}], "clusters": [{"id": 1, "n_cells": 218, "visits": 429208, "p05": 1.04, "p25": 2.23, "p50": 7.25, "p75": 18.19, "p95": 79.52, "wmean": 16.72, "wlon": -118.7065, "wlat": 34.1329, "mean_md": 0.0363, "mean_nd": 0.0319, "mean_cos": 0.8395, "place": "West San Fernando Valley / Calabasas"}, {"id": 2, "n_cells": 501, "visits": 226933, "p05": 1.54, "p25": 3.65, "p50": 7.35, "p75": 18.8, "p95": 73.74, "wmean": 17.13, "wlon": -118.6598, "wlat": 34.15, "mean_md": 0.0349, "mean_nd": 0.0283, "mean_cos": 0.7474, "place": "Agoura Hills / Westlake corridor"}, {"id": 3, "n_cells": 425, "visits": 344288, "p05": 5.83, "p25": 14.56, "p50": 24.96, "p75": 45.76, "p95": 111.36, "wmean": 36.5, "wlon": -118.3364, "wlat": 34.1575, "mean_md": 0.0291, "mean_nd": 0.0242, "mean_cos": 0.8551, "place": "Far ring, Valley-weighted"}, {"id": 4, "n_cells": 286, "visits": 2613750, "p05": 0.74, "p25": 1.82, "p50": 4.67, "p75": 11.5, "p95": 34.69, "wmean": 9.5, "wlon": -118.3878, "wlat": 34.0438, "mean_md": 0.0822, "mean_nd": 0.0359, "mean_cos": 0.914, "place": "Westside core (Culver City / Beverlywood)"}, {"id": 5, "n_cells": 489, "visits": 952432, "p05": 2.01, "p25": 7.97, "p50": 16.46, "p75": 29.17, "p95": 66.75, "wmean": 22.59, "wlon": -118.2549, "wlat": 34.0518, "mean_md": 0.0453, "mean_nd": 0.0208, "mean_cos": 0.9241, "place": "Downtown LA and east"}], "coverage60": [{"store": "Glendale - custom", "pct": 62.1, "visits": 189835, "mean_w": 1.91, "mean_u": 3.0, "cells": 8, "area": 46, "parts": 1, "max_km": 5.7}, {"store": "West Hollywood - custom", "pct": 61.0, "visits": 45794, "mean_w": 2.6, "mean_u": 4.35, "cells": 9, "area": 52, "parts": 2, "max_km": 10.7}, {"store": "Manhattan Beach - custom", "pct": 60.3, "visits": 335211, "mean_w": 3.5, "mean_u": 4.76, "cells": 22, "area": 127, "parts": 3, "max_km": 11.1}, {"store": "Venice", "pct": 60.1, "visits": 209194, "mean_w": 4.41, "mean_u": 7.41, "cells": 24, "area": 138, "parts": 5, "max_km": 24.7}, {"store": "Pasadena", "pct": 60.4, "visits": 80598, "mean_w": 5.98, "mean_u": 7.7, "cells": 48, "area": 277, "parts": 4, "max_km": 18.2}, {"store": "Palisades", "pct": 60.6, "visits": 233891, "mean_w": 5.07, "mean_u": 8.67, "cells": 24, "area": 138, "parts": 5, "max_km": 30.5}, {"store": "9300 Culver Blvd. Suite 101", "pct": 60.1, "visits": 60956, "mean_w": 5.72, "mean_u": 8.75, "cells": 45, "area": 259, "parts": 10, "max_km": 46.6}, {"store": "Beverly Hills", "pct": 60.0, "visits": 257516, "mean_w": 6.19, "mean_u": 9.45, "cells": 55, "area": 317, "parts": 9, "max_km": 38.2}, {"store": "Santa Monica", "pct": 60.1, "visits": 220659, "mean_w": 4.91, "mean_u": 9.49, "cells": 44, "area": 253, "parts": 5, "max_km": 25.8}, {"store": "4121 Santa Monica Blvd", "pct": 60.5, "visits": 93605, "mean_w": 5.5, "mean_u": 9.74, "cells": 20, "area": 115, "parts": 9, "max_km": 51.1}, {"store": "7660 Beverly Blvd", "pct": 60.2, "visits": 119152, "mean_w": 5.3, "mean_u": 10.69, "cells": 43, "area": 248, "parts": 8, "max_km": 132.5}, {"store": "Calabasas", "pct": 60.4, "visits": 516269, "mean_w": 8.44, "mean_u": 11.72, "cells": 49, "area": 281, "parts": 8, "max_km": 32.9}, {"store": "12833 Ventura Blvd", "pct": 60.4, "visits": 397148, "mean_w": 8.74, "mean_u": 14.01, "cells": 44, "area": 253, "parts": 15, "max_km": 75.2}], "predict": [{"store": "Costa Mesa", "cells": 2937, "visits": 153171, "mean": 52.2, "median": 10, "max": 4764, "c100": 179}, {"store": "Thousand Oaks", "cells": 2937, "visits": 151234, "mean": 51.5, "median": 13, "max": 4764, "c100": 187}], "swatch": [{"name": "Bel Air", "kind": "wealthy residential", "hex": "#619c63", "r": 97, "g": 156, "b": 99, "md": 0.0517}, {"name": "Calabasas", "kind": "wealthy suburban", "hex": "#4ea484", "r": 78, "g": 164, "b": 132, "md": 0.0529}, {"name": "San Marino", "kind": "wealthy residential", "hex": "#3b8570", "r": 59, "g": 133, "b": 112, "md": 0.0609}, {"name": "Van Nuys", "kind": "working-class valley", "hex": "#325e7f", "r": 50, "g": 94, "b": 127, "md": 0.0572}, {"name": "Compton", "kind": "lower income", "hex": "#2f6daf", "r": 47, "g": 109, "b": 175, "md": 0.0579}, {"name": "Boyle Heights", "kind": "lower income", "hex": "#37539a", "r": 55, "g": 83, "b": 154, "md": 0.0599}, {"name": "Watts", "kind": "lower income", "hex": "#3a399f", "r": 58, "g": 57, "b": 159, "md": 0.0521}, {"name": "Venice boardwalk", "kind": "tourist beach", "hex": "#25b769", "r": 37, "g": 183, "b": 105, "md": 0.0997}, {"name": "Hollywood Blvd", "kind": "tourist, busy", "hex": "#22cc8d", "r": 34, "g": 204, "b": 141, "md": 0.1171}, {"name": "Santa Monica pier", "kind": "tourist beach", "hex": "#0dd19e", "r": 13, "g": 209, "b": 158, "md": 0.1307}, {"name": "Downtown LA", "kind": "dense urban core", "hex": "#04dfb6", "r": 4, "g": 223, "b": 182, "md": 0.2059}, {"name": "Koreatown", "kind": "dense residential", "hex": "#0db195", "r": 13, "g": 177, "b": 149, "md": 0.1208}, {"name": "Long Beach downtown", "kind": "dense urban / port", "hex": "#18adcf", "r": 24, "g": 173, "b": 207, "md": 0.134}, {"name": "Inglewood", "kind": "lower-middle", "hex": "#00b5bb", "r": 0, "g": 181, "b": 187, "md": 0.2001}, {"name": "Beverly Hills retail flats", "kind": "wealthy, commercial", "hex": "#1af376", "r": 26, "g": 243, "b": 118, "md": 0.1471}, {"name": "Rodeo Drive business triangle", "kind": "wealthy, commercial", "hex": "#07e58d", "r": 7, "g": 229, "b": 141, "md": 0.1571}, {"name": "Beverly Hills north of Sunset", "kind": "wealthy residential", "hex": "#5aa53c", "r": 90, "g": 165, "b": 60, "md": 0.0738}, {"name": "Trousdale Estates", "kind": "wealthy residential", "hex": "#548f50", "r": 84, "g": 143, "b": 80, "md": 0.0724}, {"name": "Malibu", "kind": "wealthy coastal", "hex": "#9874a0", "r": 152, "g": 116, "b": 160, "md": 0.0316}], "anom": [{"h3": "8729a565bffffff", "lon": -118.4119, "lat": 33.9337, "md": 0.4716, "nd": 0.0432, "visits": 12492, "hex": "#32dfe9", "store": "Manhattan Beach - custom", "km": 4.517, "place": "LAX south airfield / Westchester edge"}, {"h3": "8729a19a6ffffff", "lon": -118.4364, "lat": 33.9444, "md": 0.4701, "nd": 0.1252, "visits": 2015, "hex": "#40d6ef", "store": "Venice", "km": 5.572, "place": "Playa del Rey / Dockweiler beach"}, {"h3": "8729a19b4ffffff", "lon": -118.388, "lat": 33.9461, "md": 0.4569, "nd": 0.0811, "visits": 10709, "hex": "#26fff4", "store": "Manhattan Beach - custom", "km": 4.998, "place": "LAX east terminals / Westchester"}, {"h3": "8729a19b5ffffff", "lon": -118.4124, "lat": 33.9569, "md": 0.4355, "nd": 0.1041, "visits": 6178, "hex": "#21dfdf", "store": "Venice", "km": 5.867, "place": "Playa Vista / Ballona wetlands"}, {"h3": "8729a5659ffffff", "lon": -118.4359, "lat": 33.9212, "md": 0.4343, "nd": 0.0778, "visits": 10480, "hex": "#4fd3ad", "store": "Manhattan Beach - custom", "km": 5.425, "place": "El Segundo refinery / Hyperion plant"}, {"h3": "8729a565affffff", "lon": -118.3875, "lat": 33.9229, "md": 0.4187, "nd": 0.0698, "visits": 17545, "hex": "#1df5cb", "store": "Manhattan Beach - custom", "km": 2.441, "place": "El Segundo aerospace / industrial park"}, {"h3": "8729a56e9ffffff", "lon": -118.3635, "lat": 33.9354, "md": 0.3843, "nd": 0.1058, "visits": 23147, "hex": "#12d7ff", "store": "Manhattan Beach - custom", "km": 4.148, "place": "Inglewood / Hollywood Park"}, {"h3": "8729a5658ffffff", "lon": -118.4115, "lat": 33.9105, "md": 0.2728, "nd": 0.0855, "visits": 17183, "hex": "#1aefae", "store": "Manhattan Beach - custom", "km": 2.885, "place": "El Segundo south / Manhattan Beach north"}, {"h3": "8729a0b43ffffff", "lon": -117.925, "lat": 33.8104, "md": 0.2332, "nd": 0.116, "visits": 1134, "hex": "#17c5d8", "store": "Pasadena", "km": 41.13, "place": "Disneyland Resort, Anaheim"}, {"h3": "8729a56edffffff", "lon": -118.3631, "lat": 33.9122, "md": 0.2223, "nd": 0.0752, "visits": 37173, "hex": "#0cbbab", "store": "Manhattan Beach - custom", "km": 2.131, "place": "Hawthorne"}, {"h3": "8729a1d75ffffff", "lon": -118.2443, "lat": 34.0439, "md": 0.2059, "nd": 0.0885, "visits": 7123, "hex": "#04dfb6", "store": "4121 Santa Monica Blvd", "km": 6.408, "place": "Downtown LA / Arts District"}, {"h3": "8729a19b6ffffff", "lon": -118.364, "lat": 33.9586, "md": 0.2001, "nd": 0.0805, "visits": 7141, "hex": "#00b5bb", "store": "Manhattan Beach - custom", "km": 6.572, "place": "Inglewood north"}], "seams": [{"h3": "8729a19a6ffffff", "lon": -118.4364, "lat": 33.9444, "nd": 0.1252, "md": 0.4701, "visits": 2015, "store": "Venice", "km": 5.572, "place": "Playa del Rey \u2014 runway end meets beach"}, {"h3": "8729a1d4effffff", "lon": -118.2946, "lat": 34.135, "nd": 0.1163, "md": 0.0952, "visits": 67, "store": "4121 Santa Monica Blvd", "km": 4.89, "place": "Glendale / Griffith Park north edge"}, {"h3": "8729a0b43ffffff", "lon": -117.925, "lat": 33.8104, "nd": 0.116, "md": 0.2332, "visits": 1134, "store": "Pasadena", "km": 41.13, "place": "Disneyland Resort, Anaheim"}, {"h3": "8729a19a0ffffff", "lon": -118.4608, "lat": 33.9552, "nd": 0.1134, "md": 0.1815, "visits": 785, "store": "Venice", "km": 3.846, "place": "Marina del Rey / Playa del Rey coast"}, {"h3": "8729a5614ffffff", "lon": -118.1908, "lat": 33.767, "nd": 0.1133, "md": 0.134, "visits": 2852, "store": "Manhattan Beach - custom", "km": 23.147, "place": "Downtown Long Beach / port"}, {"h3": "8729a562dffffff", "lon": -118.3599, "lat": 33.7497, "nd": 0.1117, "md": 0.0883, "visits": 89, "store": "Manhattan Beach - custom", "km": 16.996, "place": "Palos Verdes / San Pedro coastal edge"}, {"h3": "8729ac985ffffff", "lon": -119.662, "lat": 34.519, "nd": 0.1105, "md": 0.1313, "visits": 0, "store": "Calabasas", "km": 97.228, "place": "Carpinteria / Santa Barbara coast (AOI edge)"}, {"h3": "8729a096dffffff", "lon": -117.6775, "lat": 33.4453, "nd": 0.1076, "md": 0.0721, "visits": 0, "store": "Manhattan Beach - custom", "km": 82.616, "place": "South Orange County coast (AOI edge)"}, {"h3": "8729a56e9ffffff", "lon": -118.3635, "lat": 33.9354, "nd": 0.1058, "md": 0.3843, "visits": 23147, "store": "Manhattan Beach - custom", "km": 4.148, "place": "Inglewood / Hollywood Park"}, {"h3": "8729a1c16ffffff", "lon": -118.0039, "lat": 34.191, "nd": 0.0903, "md": 0.0943, "visits": 0, "store": "Pasadena", "km": 13.294, "place": "Arcadia / Santa Anita"}], "neartop": [{"lon": -118.1244, "lat": 34.1291, "cos": 0.9289, "visits": 700, "store": "Pasadena", "km": 1.231, "cl": "4", "place": "East Pasadena (Hastings Ranch)"}, {"lon": -118.1248, "lat": 34.1523, "cos": 0.9645, "visits": 1046, "store": "Pasadena", "km": 1.81, "cl": "4", "place": "Altadena"}, {"lon": -118.222, "lat": 34.149, "cos": 0.9549, "visits": 1580, "store": "Glendale - custom", "km": 2.006, "cl": "5", "place": "North Glendale / Verdugo"}, {"lon": -118.7314, "lat": 34.1423, "cos": 0.8983, "visits": 337, "store": "Calabasas", "km": 2.229, "cl": "1", "place": "Agoura Hills"}, {"lon": -118.1485, "lat": 34.1167, "cos": 0.973, "visits": 959, "store": "Pasadena", "km": 2.714, "cl": "4", "place": "San Marino / south Pasadena"}, {"lon": -118.1004, "lat": 34.1415, "cos": 0.9389, "visits": 404, "store": "Pasadena", "km": 3.048, "cl": "4", "place": "Sierra Madre / north Arcadia"}, {"lon": -118.1493, "lat": 34.1631, "cos": 0.9258, "visits": 961, "store": "Pasadena", "km": 3.209, "cl": "4", "place": "North Altadena"}, {"lon": -118.124, "lat": 34.1059, "cos": 0.9572, "visits": 1062, "store": "Pasadena", "km": 3.612, "cl": "5", "place": "San Gabriel / San Marino south"}, {"lon": -118.2216, "lat": 34.1259, "cos": 0.9558, "visits": 1412, "store": "Glendale - custom", "km": 3.682, "cl": "5", "place": "South Glendale / Atwater"}, {"lon": -118.417, "lat": 34.1886, "cos": 0.9618, "visits": 2130, "store": "12833 Ventura Blvd", "km": 4.725, "cl": "5", "place": "Van Nuys / north Sherman Oaks"}, {"lon": -118.7559, "lat": 34.1529, "cos": 0.916, "visits": 745, "store": "Calabasas", "km": 4.67, "cl": "4", "place": "Oak Park / west Agoura"}, {"lon": -118.4655, "lat": 34.1869, "cos": 0.9681, "visits": 1896, "store": "12833 Ventura Blvd", "km": 6.6, "cl": "5", "place": "Encino / Reseda"}, {"lon": -118.3685, "lat": 34.1903, "cos": 0.9668, "visits": 1717, "store": "12833 Ventura Blvd", "km": 6.403, "cl": "5", "place": "Van Nuys east"}, {"lon": -118.295, "lat": 34.1581, "cos": 0.9512, "visits": 611, "store": "Glendale - custom", "km": 4.811, "cl": "4", "place": "Burbank"}, {"lon": -118.3186, "lat": 34.1225, "cos": 0.9234, "visits": 535, "store": "4121 Santa Monica Blvd", "km": 4.75, "cl": "4", "place": "Universal City / Hollywood Hills"}, {"lon": -118.2456, "lat": 34.1135, "cos": 0.948, "visits": 1739, "store": "4121 Santa Monica Blvd", "km": 4.128, "cl": "5", "place": "Los Feliz / Griffith Park"}]};
+const SVGNS="http://www.w3.org/2000/svg";
+const CL={"1":"#7F3C8D","2":"#11A579","3":"#3969AC","4":"#F2B701","5":"#E73F74"};
+const BAR="#2a5674";
+const S=D.short, ORD=D.order;
+const fmt=(n,d=0)=>n.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const el=(t,a={},k=[])=>{const e=document.createElementNS(SVGNS,t);
+  for(const p in a) e.setAttribute(p,a[p]); k.forEach(c=>e.appendChild(c)); return e;};
+const tx=(x,y,s,a={})=>{const e=el("text",Object.assign({x,y},a)); e.textContent=s; return e;};
+function svg(w,h){return el("svg",{viewBox:`0 0 ${w} ${h}`,role:"img"});}
+function tip(e,s){const t=el("title"); t.textContent=s; e.appendChild(t);}
+function RO(id, idle){const n=document.getElementById(id);
+  const set=(v,l,note)=>{n.innerHTML=`<span class="v">${v}</span><span class="l">${l}</span><span class="n">${note||""}</span>`;};
+  const reset=()=>{n.innerHTML=`<span class="n">${idle}</span>`;}; reset(); return {set,reset};}
+function hov(e,ro,v,l,note){e.classList.add("mk");
+  e.addEventListener("mouseenter",()=>ro.set(v,l,note));
+  e.addEventListener("mouseleave",()=>ro.reset());
+  e.addEventListener("focus",()=>ro.set(v,l,note)); e.setAttribute("tabindex","0");}
+function mkKey(id, items){const n=document.getElementById(id); if(!n) return; n.innerHTML="";
+  items.forEach(([c,lab,sub])=>{const d=document.createElement("span"); d.className="it";
+    d.innerHTML=`<span class="sw" style="background:${c}"></span>${lab}`+(sub?` <span class="lb">${sub}</span>`:"");
+    n.appendChild(d);});}
+mkKey("key-cl",[[CL["1"],"Cluster 1","218 cells · 429k visits"],[CL["2"],"Cluster 2","501 · 227k"],
+  [CL["3"],"Cluster 3","425 · 344k"],[CL["4"],"Cluster 4","286 · 2.61M"],[CL["5"],"Cluster 5","489 · 952k"]]);
+mkKey("key-cos",[["#f0f3f6","cosine 0.905"],["#c9d9e8","0.93"],["#7ea9cf","0.955"],
+  ["#3d74a8","0.98"],["#14456f","1.00"]]);
+
+function ramp(t,stops){if(!isFinite(t))return "#f2f5f8"; t=Math.max(0,Math.min(1,t));
+  const n=stops.length-1, i=Math.min(n-1,Math.floor(t*n)), f=t*n-i;
+  const hx=c=>[parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)];
+  const A=hx(stops[i]),B=hx(stops[i+1]);
+  return `rgb(${Math.round(A[0]+(B[0]-A[0])*f)},${Math.round(A[1]+(B[1]-A[1])*f)},${Math.round(A[2]+(B[2]-A[2])*f)})`;}
+const lum=c=>{const m=c.match(/\d+/g); return (0.299*m[0]+0.587*m[1]+0.114*m[2])/255;};
+
+/* ---------- box plots ---------- */
+const roX=RO("ro-box","Hover a box. All quantiles are weighted by visitor counts, not by cell counts.");
+function drawBox(mode){
+  const isS=mode==="store";
+  const src=isS?D.box_store:D.box_cluster;
+  const keys=isS?ORD:["1","2","3","4","5"];
+  const rh=isS?30:44, m={t:30,r:26,b:44,l:isS?150:110};
+  const W=940, H=m.t+rh*keys.length+m.b, iw=W-m.l-m.r;
+  const XM=isS?75:115;
+  const x=v=>m.l+(v/XM)*iw;
+  const s=svg(W,H), g=el("g",{class:"ax"});
+  for(let v=0;v<=XM;v+=(isS?15:23)){
+    g.appendChild(el("line",{x1:x(v),x2:x(v),y1:m.t-6,y2:m.t+rh*keys.length,class:"gl"}));
+    g.appendChild(tx(x(v),H-m.b+18,v,{"text-anchor":"middle"}));}
+  g.appendChild(tx(m.l+iw/2,H-10,"kilometres from origin cell to the store it feeds",
+    {"text-anchor":"middle","font-size":12}));
+  s.appendChild(g);
+  keys.forEach((k,i)=>{const d=src[k], cy=m.t+rh*i+rh/2;
+    const [p5,p25,p50,p75,p95,wm,tot]=d;
+    const col=isS?BAR:CL[k];
+    const lab=isS?S[k]:("Cluster "+k);
+    s.appendChild(tx(m.l-14,cy+4,lab,{"font-size":11.5,"text-anchor":"end",fill:"#2c3844",
+      "font-family":"var(--mono)"}));
+    s.appendChild(el("line",{x1:x(p5),x2:x(p95),y1:cy,y2:cy,stroke:col,"stroke-width":1.2,opacity:.55}));
+    [p5,p95].forEach(v=>s.appendChild(el("line",{x1:x(v),x2:x(v),y1:cy-6,y2:cy+6,stroke:col,
+      "stroke-width":1.2,opacity:.8})));
+    const bh=isS?15:22;
+    s.appendChild(el("rect",{x:x(p25),y:cy-bh/2,width:Math.max(2,x(p75)-x(p25)),height:bh,fill:col,
+      opacity:.28,stroke:col,"stroke-width":1.1,rx:3}));
+    s.appendChild(el("line",{x1:x(p50),x2:x(p50),y1:cy-bh/2,y2:cy+bh/2,stroke:col,"stroke-width":2.4}));
+    s.appendChild(el("path",{d:`M ${x(wm)} ${cy-5} L ${x(wm)+4.5} ${cy} L ${x(wm)} ${cy+5} L ${x(wm)-4.5} ${cy} Z`,
+      fill:"#fff",stroke:col,"stroke-width":1.4}));
+    const hit=el("rect",{x:m.l,y:cy-rh/2+2,width:iw,height:rh-4,fill:"transparent"});
+    tip(hit,`${lab}: median ${p50} km, IQR ${p25}–${p75}, weighted mean ${wm} km`);
+    hov(hit,roX,p50.toFixed(2)+" km",lab+" — weighted median",
+      `5th–95th ${p5}–${p95} km · IQR ${p25}–${p75} · weighted mean ${wm} km · ${fmt(tot)} visits`);
+    s.appendChild(hit);
+    s.appendChild(tx(x(p95)+8,cy+4,p50.toFixed(1),{class:"cellv",fill:"#5f6f7e",stroke:"#fff"}));});
+  const n=document.getElementById("chart-box"); n.innerHTML=""; n.appendChild(s);}
+document.querySelectorAll("#seg-box button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#seg-box button").forEach(o=>o.setAttribute("aria-pressed",o===b));
+  drawBox(b.dataset.k); roX.reset();}));
+drawBox("store");
+
+/* ---------- stacked bars ---------- */
+(function(){
+  const rows=ORD.slice().sort((a,b)=>{
+    const f=n=>D.sc[n][4]/Object.values(D.sc[n]).reduce((p,c)=>p+c,0); return f(b)-f(a);});
+  const rh=34, m={t:26,r:118,b:34,l:150}, W=940, H=m.t+rh*rows.length+m.b, iw=W-m.l-m.r;
+  const s=svg(W,H);
+  const ro=RO("ro-stack","Hover a segment for the cluster's share of that store's visits.");
+  const g=el("g",{class:"ax"});
+  for(let p=0;p<=100;p+=20){const xx=m.l+iw*p/100;
+    g.appendChild(el("line",{x1:xx,x2:xx,y1:m.t-6,y2:m.t+rh*rows.length,class:"gl"}));
+    g.appendChild(tx(xx,H-m.b+18,p+"%",{"text-anchor":"middle"}));}
+  g.appendChild(tx(m.l+iw/2,H-6,"share of the store's visits, by origin cluster",
+    {"text-anchor":"middle","font-size":12}));
+  s.appendChild(g);
+  rows.forEach((r,i)=>{const cy=m.t+rh*i+4, d=D.sc[r];
+    const tot=Object.values(d).reduce((p,c)=>p+c,0);
+    s.appendChild(tx(m.l-16,cy+13,S[r],{"font-size":11.5,"text-anchor":"end",fill:"#2c3844",
+      "font-family":"var(--mono)"}));
+    let acc=0;
+    [1,2,3,4,5].forEach(c=>{const v=d[c]||0, w=iw*v/tot;
+      if(w<=0) return;
+      const rect=el("rect",{x:m.l+acc,y:cy,width:w,height:rh-16,fill:CL[String(c)],opacity:.93});
+      tip(rect,`${r} · cluster ${c}: ${fmt(v)} visits (${(v/tot*100).toFixed(1)}%)`);
+      hov(rect,ro,(v/tot*100).toFixed(1)+"%",`${S[r]} · origin cluster ${c}`,
+        `${fmt(v)} of this store's ${fmt(tot)} visits`);
+      s.appendChild(rect);
+      if(w>38) s.appendChild(tx(m.l+acc+w/2,cy+(rh-16)/2+4,Math.round(v/tot*100),
+        {class:"cellv","text-anchor":"middle",fill:c===4?"#3b2c00":"#fff",
+         stroke:c===4?"#F2B701":"none"}));
+      acc+=w;});
+    s.appendChild(tx(W-m.r+10,cy+13,fmt(tot),{class:"cellv",fill:"#5f6f7e",stroke:"none",
+      "text-anchor":"start"}));});
+  s.appendChild(tx(W-m.r+10,m.t-6,"total visits",{class:"rule-l","font-size":10.5,"text-anchor":"start"}));
+  document.getElementById("chart-stack").appendChild(s);
+})();
+
+/* ---------- cosine matrix ---------- */
+(function(){
+  const cw=52, ch=27, m={t:120,r:80,b:16,l:154};
+  const W=m.l+cw*13+m.r, H=m.t+ch*13+m.b;
+  const s=svg(W,H);
+  const ro=RO("ro-cos","Hover a pair for its plain cosine between the two visitor-weighted store profiles.");
+  const st=["#f0f3f6","#c9d9e8","#7ea9cf","#3d74a8","#14456f"];
+  ORD.forEach((c,j)=>{const cx=m.l+cw*j+cw/2;
+    s.appendChild(tx(cx,m.t-9,S[c],{class:"rule-l","font-size":11,"text-anchor":"start",
+      transform:`rotate(-52 ${cx} ${m.t-9})`}));});
+  ORD.forEach((r,i)=>{const cy=m.t+ch*i;
+    s.appendChild(tx(m.l-14,cy+ch/2+4,S[r],{"font-size":11.5,"text-anchor":"end",fill:"#2c3844",
+      "font-family":"var(--mono)"}));
+    ORD.forEach((c,j)=>{const cx=m.l+cw*j;
+      if(r===c){s.appendChild(el("rect",{x:cx+1,y:cy+1,width:cw-2,height:ch-2,fill:"#fff",
+        stroke:"#dfe4ea","stroke-dasharray":"3 2",rx:3}));
+        s.appendChild(tx(cx+cw/2,cy+ch/2+4,"self",{class:"cellv",fill:"#8a97a4",stroke:"none",
+          "text-anchor":"middle"})); return;}
+      const v=D.cos[r][c], col=ramp((v-0.905)/0.095,st);
+      const rect=el("rect",{x:cx+1,y:cy+1,width:cw-2,height:ch-2,fill:col,rx:3});
+      tip(rect,`${r} ↔ ${c}: cosine ${v.toFixed(4)}`);
+      hov(rect,ro,v.toFixed(4),`${S[r]} ↔ ${S[c]}`,
+        `rescaled score ${((1+v)/2).toFixed(4)} · 1.0000 would mean the two stores draw on identical kinds of place`);
+      s.appendChild(rect);
+      s.appendChild(tx(cx+cw/2,cy+ch/2+4,v.toFixed(3).slice(1),{class:"cellv","text-anchor":"middle",
+        fill:lum(col)>.6?"#2c3844":"#fff",stroke:lum(col)>.6?"#fff":"none"}));});});
+  const wrap=document.createElement("div"); wrap.className="scroll"; s.style.minWidth=W+"px";
+  wrap.appendChild(s); document.getElementById("chart-cos").appendChild(wrap);
+})();
+
+/* ---------- prediction tiles ---------- */
+(function(){
+  const n=document.getElementById("tiles");
+  D.predict.forEach(p=>{const d=document.createElement("div"); d.className="tile";
+    d.innerHTML=`<div class="bn">${p.store}</div>
+      <dl><dt>total predicted visits</dt><dd>${fmt(p.visits)}</dd>
+      <dt>median cell / mean cell</dt><dd>${p.median} / ${fmt(p.mean,1)}</dd>
+      <dt>cells above 100 visits</dt><dd>${fmt(p.c100)}</dd></dl>`;
+    n.appendChild(d);});
+})();
+
+/* ---------- tables ---------- */
+function table(id, head, rows, mono=[]){
+  const t=document.getElementById(id); if(!t) return;
+  const th=document.createElement("thead"), tr=document.createElement("tr");
+  head.forEach((h,i)=>{const e=document.createElement("th");e.textContent=h;
+    if(mono.includes(i))e.className="mono";tr.appendChild(e);});
+  th.appendChild(tr); t.appendChild(th);
+  const tb=document.createElement("tbody");
+  rows.forEach(r=>{const x=document.createElement("tr");
+    r.forEach((c,i)=>{const e=document.createElement("td");e.innerHTML=c;
+      if(mono.includes(i))e.className="mono";x.appendChild(e);});
+    tb.appendChild(x);});
+  t.appendChild(tb);}
+
+table("t-cov",["Store","Cells in 60% set","Visits covered","% of store's visits",
+  "Mean km (visit-weighted)","Max km"],
+  D.coverage60.slice().sort((a,b)=>b.visits-a.visits).map(c=>[S[c.store]||c.store,c.cells,fmt(c.visits),
+    c.pct.toFixed(1),`${c.mean_u.toFixed(2)} (${c.mean_w.toFixed(2)})`,c.max_km.toFixed(1)]),
+  [1,2,3,4,5]);
+
+document.querySelectorAll("details.tbl").forEach(dt=>{
+  const t=dt.querySelector("table"), rc=dt.querySelector(".rc");
+  if(!t||!rc) return;   // non-table toggles keep the label written in the markup
+  rc.textContent=`${t.querySelectorAll("tbody tr").length} rows × ${t.querySelectorAll("thead th").length} cols`;
+});
+</script>
+</body>
+</html>
