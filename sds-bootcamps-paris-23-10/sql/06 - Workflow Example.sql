@@ -206,7 +206,7 @@ BEGIN
           file_id,
           '-000000000000.csv.gz');
         DECLARE headers STRING DEFAULT '''
-        { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbHFlM3p3Z3UiLCJqdGkiOiJkNmM2ZWQxYyJ9.BSFhope8VdL33gtOOlqEH0NYBAMkO8hsR5plnPajCjA",
+        { "Authorization": "Bearer YOUR_CARTO_ACCESS_TOKEN",
           "Content-Type": "application/json"
         }''';
         DECLARE payload STRING DEFAULT FORMAT('''
