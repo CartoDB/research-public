@@ -40,7 +40,7 @@ BEGIN
     SELECT * FROM  `WORKFLOW_54fd994649546936_b22be74f6743c39e_result`;
   CALL `carto-un.carto`.GEOCODE_TABLE(
     'https://gcp-us-east1.api.carto.com',
-    'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbHFlM3p3Z3UiLCJqdGkiOiI0OTBkNjkxYyJ9.Qf5j3DcqGFKmbsIl0uUOgQRP64sPsXhBO54zOqJzLxA',
+    'YOUR_CARTO_ACCESS_TOKEN',
     'WORKFLOW_54fd994649546936_4384d387050c22ca_tempgeocoding',
     'block',
     'geom',
